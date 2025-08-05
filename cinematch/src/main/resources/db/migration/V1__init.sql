@@ -23,5 +23,5 @@ CREATE TABLE ColourPalette (
   colour_9 VARCHAR(50),
   colour_10 VARCHAR(50),
   colour_11 VARCHAR(50),
-  colour_12 VARCHAR(50),
+  colour_12 VARCHAR(50)
 );
