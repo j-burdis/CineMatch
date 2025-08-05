@@ -3,8 +3,8 @@ DROP TABLE IF EXISTS Movies;
 
 CREATE TABLE Movies (
   id BIGSERIAL PRIMARY KEY,
-  title VARCHAR(250) NOT NULL,
-  release_date INT,
+  title VARCHAR(255) NOT NULL,
+  release_date DATE,
   poster_url VARCHAR(255),
   dominant_colour VARCHAR(255)
 );
@@ -16,5 +16,12 @@ CREATE TABLE ColourPalette (
   colour_2 VARCHAR(50),
   colour_3 VARCHAR(50),
   colour_4 VARCHAR(50),
-  colour_5 VARCHAR(50)
+  colour_5 VARCHAR(50),
+  colour_6 VARCHAR(50),
+  colour_7 VARCHAR(50),
+  colour_8 VARCHAR(50),
+  colour_9 VARCHAR(50),
+  colour_10 VARCHAR(50),
+  colour_11 VARCHAR(50),
+  colour_12 VARCHAR(50),
 );
