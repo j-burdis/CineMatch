@@ -1,5 +1,9 @@
 package ImageIO;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -8,13 +12,16 @@ import java.util.Map;
 import java.util.Comparator;
 import java.util.Map.Entry;
 
+
+
 public class ImageTester {
-
-public static void main(String[] args) {
+    @GetMapping("/analyze-image")
+    @ResponseBody
+public static void main(@RequestParam String url) {
     try {
-        String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
+        //String imageUrl = "2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
 
-        BufferedImage image = ImageIO.read(new URL(imageUrl));
+        BufferedImage image = ImageIO.read(new URL(url));
         if(image == null){
             System.out.println("Failed to load image.");
             return;
