@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+    <main>
+        <div th:each = "colour:${coloursArray}"
+                 class="colour-box"
+                 th:style="'background-color:' + ${colour}">
+
+
+        </div>
+
+
+
+    </main>
+
+
+</body>
+</html>
