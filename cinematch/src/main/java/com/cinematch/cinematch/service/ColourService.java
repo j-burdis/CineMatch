@@ -21,7 +21,7 @@ public class ColourService {
     //api call to colour api
     public List<String> getColours(String hex) {
         ColourDTO resp = webClient.get()
-                .uri("https://www.thecolorapi.com/scheme?hex=" + hex +"&mode=complement&count=6")
+                .uri("https://www.thecolorapi.com/scheme?hex=" + hex +"&mode=monochrome&count=12")
                 .retrieve()
                 .bodyToMono(ColourDTO.class)
                 .block();
