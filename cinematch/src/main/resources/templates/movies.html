@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CineMatch</title>
+</head>
+<body>
+<h1>Popular Movies</h1>
+    <ul>
+        <li th:each="movie : ${movies}">
+            <h2 th:text="${movie.title}"></h2>
+            <img th:src="@{'https://image.tmdb.org/t/p/w200' + ${movie.poster_path}}" alt="Poster"/>
+        </li>
+    </ul>
+</body>
+</html>
