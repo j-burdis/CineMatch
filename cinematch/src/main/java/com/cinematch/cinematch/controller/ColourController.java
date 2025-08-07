@@ -27,11 +27,11 @@ public class ColourController {
         this.palleteToDuluxService = palleteToDuluxService;
     }
 
-//    TODO: edit once able to pass url into runImageTest()
+    //    TODO: edit once able to pass url into runImageTest()
     @GetMapping("/image-colour")
-        public String runImageTest(@RequestParam("url") String imageUrl) {
-            String hexCode = imageService.getDominantColour(imageUrl);
-            return "redirect:/colours/" + hexCode;
+    public String runImageTest(@RequestParam("url") String imageUrl) {
+        String hexCode = imageService.getDominantColour(imageUrl);
+        return "redirect:/colours/" + hexCode;
     }
 
     //route for colour api request

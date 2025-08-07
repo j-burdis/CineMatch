@@ -23,4 +23,17 @@ public class DuluxColour {
     private Integer rgbRed;
     private Integer rgbGreen;
     private Integer rgbBlue;
+
+    public String getPurchaseUrl() {
+        if (colourName == null || colourName.trim().isEmpty()) {
+            return null;
+        }
+
+        String urlSlug = colourName.toLowerCase()
+                .trim()
+                .replaceAll("\\s+", "-")
+                .replaceAll("\\s*\\d+$", "");
+
+        return "https://www.dulux.co.uk/en/colour-details/" + urlSlug;
+    }
 }
