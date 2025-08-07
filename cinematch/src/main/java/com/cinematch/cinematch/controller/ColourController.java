@@ -5,6 +5,7 @@ import com.cinematch.cinematch.service.ColourService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +25,8 @@ public class ColourController {
 
 //    TODO: edit once able to pass url into runImageTest()
     @GetMapping("/image-colour")
-        public String runImageTest() {
-            String hexCode = imageService.runTest();
+        public String runImageTest(@RequestParam("url") String imageUrl) {
+            String hexCode = imageService.getDominantColour(imageUrl);
             return "redirect:/colours/" + hexCode;
     }
 

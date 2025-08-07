@@ -12,13 +12,12 @@ import java.util.Map.Entry;
 @Service
 public class ImageService {
 
-    public String runTest() {
+    public String getDominantColour(String imageUrl) {
         try {
-            String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
-
             BufferedImage image = ImageIO.read(new URL(imageUrl));
             if (image == null) {
-                return ("Failed to load image.");
+                System.out.println("Failed to load image.");
+                return null;
             }
 
             Map<Integer, Integer> colourCount = new HashMap<>();
@@ -46,7 +45,7 @@ public class ImageService {
 
 
             String hex = rgbToHex(dominantColorRGB);
-            return ("Most dominant color : #" + hex);
+            return ("#" + hex);
 
         } catch (Exception e) {
             e.printStackTrace();
