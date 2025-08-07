@@ -14,7 +14,11 @@
 
 
         </div>
-
+        <div th:each="match : ${closestMatches}">
+            <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">
+                <p th:text="'Closest paint: ' + ${match.hexCode}"></p>
+            </div>
+        </div>
 
 
     </main>

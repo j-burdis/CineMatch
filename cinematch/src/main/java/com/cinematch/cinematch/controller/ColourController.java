@@ -1,7 +1,9 @@
 package com.cinematch.cinematch.controller;
 
+import com.cinematch.cinematch.model.DuluxColour;
 import com.cinematch.cinematch.service.ImageService;
 import com.cinematch.cinematch.service.ColourService;
+import com.cinematch.cinematch.service.PalleteToDuluxService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +38,13 @@ public class ColourController {
 
 
         List<String> ColoursArray = colourService.getColours(hex);
+        List<DuluxColour> closestMatches = PalleteToDuluxService.getClosestPaintMatches(ColoursArray);
+
 
         //thymeleaf connection
         ModelAndView modelAndView = new ModelAndView("colour-palette");
         modelAndView.addObject("coloursArray", ColoursArray);
+        modelAndView.addObject("closestMatches", closestMatches);
         System.out.println(modelAndView);
         return modelAndView;
 
