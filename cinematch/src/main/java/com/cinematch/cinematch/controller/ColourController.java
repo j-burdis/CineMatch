@@ -19,10 +19,12 @@ public class ColourController {
 
     private final ColourService colourService;
     private final ImageService imageService;
+    private final PalleteToDuluxService palleteToDuluxService;
 
-    public ColourController(ColourService colourService, ImageService imageService) {
+    public ColourController(ColourService colourService, ImageService imageService, PalleteToDuluxService palleteToDuluxService) {
         this.colourService = colourService;
         this.imageService = imageService;
+        this.palleteToDuluxService = palleteToDuluxService;
     }
 
 //    TODO: edit once able to pass url into runImageTest()
@@ -36,9 +38,8 @@ public class ColourController {
     @GetMapping("/colours/{hex}")
     public ModelAndView ColourPalette(@PathVariable String hex) {
 
-
         List<String> ColoursArray = colourService.getColours(hex);
-        List<DuluxColour> closestMatches = PalleteToDuluxService.getClosestPaintMatches(ColoursArray);
+        List<DuluxColour> closestMatches = palleteToDuluxService.getClosestPaintMatches(ColoursArray);
 
 
         //thymeleaf connection
