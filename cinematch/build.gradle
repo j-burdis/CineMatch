@@ -32,6 +32,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.26'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+	implementation 'org.jsoup:jsoup:1.17.1'
 }
 
 tasks.named('test') {
