@@ -17,10 +17,12 @@ public class MovieService {
 
     private final String apiKey;
     private final MovieRepository movieRepository;
+    private final ImageService imageService;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository,ImageService imageService) {
         this.movieRepository = movieRepository;
+        this.imageService = imageService;
         Dotenv dotenv = Dotenv.load();
         this.apiKey = dotenv.get("TMDB_API_KEY");
     }
@@ -58,6 +60,8 @@ public class MovieService {
         return movieRepository.findById(movie.getId())
                 .orElseGet(() -> {
                     // movie doesn't exist, save it
+                    String dominantColour = imageService.getDominantColour(movie.getPosterUrl());
+                    movie.setDominantColour(dominantColour);
                     return movieRepository.save(movie);
                 });
     }

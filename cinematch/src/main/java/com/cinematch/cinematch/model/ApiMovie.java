@@ -19,6 +19,6 @@ public class ApiMovie {
 
     // Convert to entity
     public Movie toEntity() {
-        return new Movie(this. id, this.title, this.posterPath, this.releaseDate);
+        return new Movie(this. id, this.title, this.posterPath, this.releaseDate, null);
     }
 }

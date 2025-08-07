@@ -38,11 +38,12 @@ public class Movie {
     @Transient
     private String release_date;
 
-    public Movie(Long id, String title, String posterPath, String releaseDate) {
+    public Movie(Long id, String title, String posterPath, String releaseDate, String dominantColour) {
         this.id = id;
         this.title = title;
         this.poster_path = posterPath;
         this.release_date = releaseDate;
+        this.dominantColour = dominantColour;
 
         this.posterUrl = posterPath != null ? "https://image.tmdb.org/t/p/w200" + posterPath : null;
 
