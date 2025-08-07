@@ -13,51 +13,70 @@ import java.util.Map.Entry;
 public class ImageService {
 
     public String runTest() {
-    try {
-        String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
+        try {
+            String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
 
-        BufferedImage image = ImageIO.read(new URL(imageUrl));
-        if(image == null){
-            System.out.println("Failed to load image.");
-            return "Failed to load image";
-        }
-
-        Map<Integer, Integer> colorCount = new HashMap<>();
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                int rgb = image.getRGB(x, y);
-                colorCount.put(rgb, colorCount.getOrDefault(rgb, 0) + 1);
-
-
+            BufferedImage image = ImageIO.read(new URL(imageUrl));
+            if (image == null) {
+                return ("Failed to load image.");
             }
+
+            Map<Integer, Integer> colourCount = new HashMap<>();
+
+            int width = image.getWidth();
+            int height = image.getHeight();
+
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    int rgb = image.getRGB(x, y);
+                    int[] rgbA = getRGBArray(rgb);
+                    if (!isGray(rgbA))
+                        colourCount.put(rgb, colourCount.getOrDefault(rgb, 0) + 1);
+
+
+                }
+            }
+
+
+            int dominantColorRGB = colourCount.entrySet()
+                    .stream()
+                    .max(Comparator.comparingInt(Entry::getValue))
+                    .map(Entry::getKey)
+                    .orElse(0);
+
+
+            String hex = rgbToHex(dominantColorRGB);
+            return ("Most dominant color : #" + hex);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
-        int dominantColorRGB = colorCount.entrySet()
-                .stream()
-                .max(Comparator.comparingInt(Entry::getValue))
-                .map(Entry::getKey)
-                .orElse(0);
-
-
-        String hex = rgbToHex(dominantColorRGB);
-//        System.out.println("Most dominant color : #" + hex);
-        return hex;
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        return "Failed";
+        return "";
     }
-}
+    private static int[] getRGBArray(int rgb) {
+        int red   = (rgb >> 16) & 0xFF;
+        int green = (rgb >> 8) & 0xFF;
+        int blue  = rgb & 0xFF;
+        return new int[]{red, green, blue};
+    }
 
     private static String rgbToHex(int rgb) {
         int red   = (rgb >> 16) & 0xFF;
         int green = (rgb >> 8) & 0xFF;
         int blue  = rgb & 0xFF;
         return String.format("%02x%02x%02x", red, green, blue);
+    }
+    public static boolean isGray(int[] rgbArr){
+        int red = rgbArr[0];
+        int green = rgbArr[1];
+        int blue = rgbArr[2];
+
+        int rgDiff = Math.abs(red - green);
+        int gbDiff = Math.abs(green - blue);
+        int rbDiff = Math.abs(red - blue);
+
+        int tolerance = 20;
+
+        return rgDiff < tolerance && gbDiff < tolerance && rbDiff < tolerance;
     }
 }
