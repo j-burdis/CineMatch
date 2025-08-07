@@ -9,9 +9,8 @@
     <ul>
         <li th:each="movie : ${movies}">
             <h2 th:text="${movie.title}"></h2>
-            <a th:href="@{/analyze-image(url=${'https://image.tmdb.org/t/p/w200' + movie.poster_path})}">
-            <img th:src="@{'https://image.tmdb.org/t/p/w200' + ${movie.poster_path}}" alt="Poster"/>
-            </a>>
+            <img th:src="${movie.posterUrl}" alt="Poster"/>
+            <p th:if="${movie.releaseDate}" th:text="'Release Date: ' + ${movie.releaseDate}"></p>
         </li>
     </ul>
 </body>
