@@ -1,12 +1,11 @@
 package com.cinematch.cinematch.service;
 
+import com.cinematch.cinematch.model.ApiMovie;
 import com.cinematch.cinematch.model.Movie;
 import com.cinematch.cinematch.model.MovieResponse;
 import com.cinematch.cinematch.repository.MovieRepository;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,26 +48,26 @@ public class MovieService {
         }
 
         return response.getResults().stream()
-                .map(MovieResponse.ApiMovie::toEntity)
+                .map(ApiMovie::toEntity)
                 .map(this::saveMovieIfNotExists)
                 .collect(Collectors.toList());
     }
 
     private Movie saveMovieIfNotExists(Movie movie) {
-        // Check if movie already exists by title and release date
-        return movieRepository.findByTitleAndReleaseDate(movie.getTitle(), movie.getReleaseDate())
+        // check if movie already exists by title and release date
+        return movieRepository.findById(movie.getId())
                 .orElseGet(() -> {
-                    // Movie doesn't exist, save it
+                    // movie doesn't exist, save it
                     return movieRepository.save(movie);
                 });
     }
 
-    // Method to force refresh from API (useful for admin purposes)
+    // force refresh from API (for admin purposes)
     public List<Movie> refreshMoviesFromApi() {
         return fetchAndSaveMoviesFromApi();
     }
 
-    // Method to get all movies from database
+    // get all movies from database
     public List<Movie> getAllMoviesFromDatabase() {
         return movieRepository.findAll();
     }

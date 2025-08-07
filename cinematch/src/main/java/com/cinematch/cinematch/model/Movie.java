@@ -16,8 +16,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(nullable = false)
     private String title;
@@ -38,7 +38,8 @@ public class Movie {
     @Transient
     private String release_date;
 
-    public Movie(String title, String posterPath, String releaseDate) {
+    public Movie(Long id, String title, String posterPath, String releaseDate) {
+        this.id = id;
         this.title = title;
         this.poster_path = posterPath;
         this.release_date = releaseDate;
