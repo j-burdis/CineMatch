@@ -1,4 +1,6 @@
-package ImageIO;
+package com.cinematch.cinematch.service;
+
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -7,17 +9,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Comparator;
 import java.util.Map.Entry;
+@Service
+public class ImageService {
 
-public class ImageTester {
-
-public static void main(String[] args) {
+    public String runTest() {
     try {
         String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
 
         BufferedImage image = ImageIO.read(new URL(imageUrl));
         if(image == null){
             System.out.println("Failed to load image.");
-            return;
+            return "Failed to load image";
         }
 
         Map<Integer, Integer> colorCount = new HashMap<>();
@@ -43,10 +45,12 @@ public static void main(String[] args) {
 
 
         String hex = rgbToHex(dominantColorRGB);
-        System.out.println("Most dominant color : #" + hex);
+//        System.out.println("Most dominant color : #" + hex);
+        return hex;
 
     } catch (Exception e) {
         e.printStackTrace();
+        return "Failed";
     }
 }
 
