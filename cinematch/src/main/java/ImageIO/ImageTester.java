@@ -12,7 +12,7 @@ public class ImageTester {
 
     public static void main(String[] args) {
         try {
-            String imageUrl = "https://image.tmdb.org/t/p/w200/2CAL2433ZeIihfX1Hb2139CX0pW.jpg";
+            String imageUrl = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg";
 
             BufferedImage image = ImageIO.read(new URL(imageUrl));
             if(image == null){
