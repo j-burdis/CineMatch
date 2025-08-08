@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PalleteToDuluxService {
+public class PaletteToDuluxService {
 
     private final DuluxColourRepository duluxColourRepository;
 
-    public PalleteToDuluxService(DuluxColourRepository duluxColourRepository) {
+    public PaletteToDuluxService(DuluxColourRepository duluxColourRepository) {
         this.duluxColourRepository = duluxColourRepository;
     }
 
