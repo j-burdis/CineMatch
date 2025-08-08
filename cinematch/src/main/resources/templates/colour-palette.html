@@ -12,10 +12,10 @@
         <div class="movie-header">
             <h2 th:text="${title}"></h2>
             <img th:src="${posterUrl}" alt="Movie Poster" />
-
         </div>
 
-
+  
+  
         <div>
             <div th:each = "colour:${coloursArray}"
                  class="colour-box"
@@ -23,41 +23,21 @@
             </div>
         </div>
 
-        <div>
-            <div th:each="colour, iterStat : ${coloursArray}" style="display: inline-block;">
-                <div th:if="${iterStat.index == 0 or iterStat.index == 4 or iterStat.index == 8 or iterStat.index == 11}">
-                    <div class="colour-box" th:style="'background-color:' + ${closestMatches[iterStat.index == 0 ? 0 : (iterStat.index == 4 ? 1 : (iterStat.index == 8 ? 2 : 3))].hexCode}">
-                        <p th:text="${closestMatches[iterStat.index == 0 ? 0 : (iterStat.index == 4 ? 1 : (iterStat.index == 8 ? 2 : 3))].colourName}"></p>
-                        <p th:text="'Closest paint: ' + ${closestMatches[iterStat.index == 0 ? 0 : (iterStat.index == 4 ? 1 : (iterStat.index == 8 ? 2 : 3))].hexCode}"></p>
-                        <a th:href="${closestMatches[iterStat.index == 0 ? 0 : (iterStat.index == 4 ? 1 : (iterStat.index == 8 ? 2 : 3))].purchaseUrl}"
-                           th:if="${closestMatches[iterStat.index == 0 ? 0 : (iterStat.index == 4 ? 1 : (iterStat.index == 8 ? 2 : 3))].purchaseUrl != null}"
-                           target="_blank">
-                            Buy on Dulux
-                        </a>
-                    </div>
-                </div>
-                <div th:unless="${iterStat.index == 0 or iterStat.index == 4 or iterStat.index == 8 or iterStat.index == 11}" class="colour-box">
-                    <!-- Empty placeholder to maintain alignment -->
-                </div>
+  
+        <div th:each="match : ${closestMatches}" style="display: inline-block;">
+            <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">
+                <p th:text="${match.colourName}"></p>
+                <p th:text="'Closest paint: ' + ${match.hexCode}"></p>
+                <a th:href="${match.purchaseUrl}"
+                   th:if="${match.purchaseUrl != null}"
+                   target="_blank">
+                    Buy on Dulux
+                </a>
             </div>
-        </div>
+         </div>
+    
 
-    <!--    <div>-->
-    <!--        <div th:each="match : ${closestMatches}" style="display: inline-block;">-->
-    <!--            <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">-->
-    <!--                <p th:text="${match.colourName}"></p>-->
-    <!--                <p th:text="'Closest paint: ' + ${match.hexCode}"></p>-->
-    <!--                <a th:href="${match.purchaseUrl}"-->
-    <!--                   th:if="${match.purchaseUrl != null}"-->
-    <!--                   target="_blank">-->
-    <!--                    Buy on Dulux-->
-    <!--                </a>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
 </main>
 
 </body>
 </html>
-<!--the div wrapping .colour-box elements) is the second div inside main, so the CSS selector matches.-->
-

@@ -71,7 +71,7 @@ public class ImageService {
         int gbDiff = Math.abs(green - blue);
         int rbDiff = Math.abs(red - blue);
 
-        int tolerance = 20;
+        int tolerance = 25;
 
         return rgDiff < tolerance && gbDiff < tolerance && rbDiff < tolerance;
     }
