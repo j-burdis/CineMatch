@@ -39,6 +39,7 @@ public class ColourController {
 
         String hexCode = imageService.getDominantColour(imageUrl);
 
+
         hexCode = hexCode.replace("#", "");
 //        return "redirect:/colours/" + hexCode + "?movieId=" + movieId;
         return "redirect:/colours/" + movieId + "/" + hexCode;
@@ -50,18 +51,25 @@ public class ColourController {
     @GetMapping("/colours/{movieId}/{hex}")
     public ModelAndView ColourPalette(@PathVariable Long movieId, @PathVariable String hex) {
 
+
         List<String> ColoursArray = colourService.getColours(hex);
         colourService.saveColours(movieId, ColoursArray);
 
         List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(ColoursArray);
 
+
         paintMatchService.savePaintMatches(movieId, closestMatches);
+
+        //get movie data
+        Movie movie = movieService.findById(movieId);
+
 
         //thymeleaf connection
         ModelAndView modelAndView = new ModelAndView("colour-palette");
         modelAndView.addObject("coloursArray", ColoursArray);
         modelAndView.addObject("closestMatches", closestMatches);
-        System.out.println(modelAndView);
+        modelAndView.addObject("posterUrl", movie.getPosterUrl());
+        modelAndView.addObject("title", movie.getTitle());
         return modelAndView;
 
     }

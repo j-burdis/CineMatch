@@ -8,14 +8,22 @@
 </head>
 <body>
     <main>
-    <div>
-        <div th:each = "colour:${coloursArray}"
-             class="colour-box"
-             th:style="'background-color:' + ${colour}">
-        </div>
-    </div>
 
-    <div>
+        <div class="movie-header">
+            <h2 th:text="${title}"></h2>
+            <img th:src="${posterUrl}" alt="Movie Poster" />
+        </div>
+
+  
+  
+        <div>
+            <div th:each = "colour:${coloursArray}"
+                 class="colour-box"
+                 th:style="'background-color:' + ${colour}">
+            </div>
+        </div>
+
+  
         <div th:each="match : ${closestMatches}" style="display: inline-block;">
             <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">
                 <p th:text="${match.colourName}"></p>
@@ -26,8 +34,9 @@
                     Buy on Dulux
                 </a>
             </div>
-        </div>
-    </div>
+         </div>
+    
+
 </main>
 
 </body>
