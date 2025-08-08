@@ -75,8 +75,8 @@ public class MovieService {
     public List<Movie> getAllMoviesFromDatabase() {
         return movieRepository.findAll();
     }
-//    //todo BH - added for checking colour
-//    public Movie findById(Long movieId) {
-//        return movieRepository.findById(movieId).orElse(null);
-//    }
+
+    public Movie findById(Long movieId) {
+        return movieRepository.findById(movieId).orElse(null);
+    }
 }
