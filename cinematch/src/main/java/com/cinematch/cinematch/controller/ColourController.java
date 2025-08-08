@@ -3,12 +3,11 @@ package com.cinematch.cinematch.controller;
 import com.cinematch.cinematch.model.DuluxColour;
 import com.cinematch.cinematch.service.ImageService;
 import com.cinematch.cinematch.service.ColourService;
-import com.cinematch.cinematch.service.PalleteToDuluxService;
+import com.cinematch.cinematch.service.PaletteToDuluxService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,12 +18,12 @@ public class ColourController {
 
     private final ColourService colourService;
     private final ImageService imageService;
-    private final PalleteToDuluxService palleteToDuluxService;
+    private final PaletteToDuluxService paletteToDuluxService;
 
-    public ColourController(ColourService colourService, ImageService imageService, PalleteToDuluxService palleteToDuluxService) {
+    public ColourController(ColourService colourService, ImageService imageService, PaletteToDuluxService paletteToDuluxService) {
         this.colourService = colourService;
         this.imageService = imageService;
-        this.palleteToDuluxService = palleteToDuluxService;
+        this.paletteToDuluxService = paletteToDuluxService;
     }
 
     //    TODO: edit once able to pass url into runImageTest()
@@ -39,7 +38,7 @@ public class ColourController {
     public ModelAndView ColourPalette(@PathVariable String hex) {
 
         List<String> ColoursArray = colourService.getColours(hex);
-        List<DuluxColour> closestMatches = palleteToDuluxService.getClosestPaintMatches(ColoursArray);
+        List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(ColoursArray);
 
 
         //thymeleaf connection
