@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @Service
 public class ColourService {
     //set up web client
     private final WebClient webClient;
-
     private final MovieRepository movieRepository;
     private final ColourRepository colourRepository;
+
     public ColourService(WebClient webClient, MovieRepository movieRepository, ColourRepository colourRepository) {
         this.webClient = webClient;
         this.movieRepository = movieRepository;
@@ -45,36 +45,39 @@ public class ColourService {
                 .collect(Collectors.toList());
     }
 
-//    public void saveColours(Long movieId, List<String> coloursArray) {
-//        Movie movie = movieRepository.findById(movieId)
-//                .orElseThrow(() -> new RuntimeException("Movie not found"));
-//
-//        List<String> hexList = coloursArray.getColours().stream()
-//                .map(colour -> colour.getHex().getClean())
-//                .collect(Collectors.toList());
-//
-//        ColourModel model = ColourModel.builder()
-//                .movie(movie)
-//                .colour_1(getColour(hexList, 0))
-//                .colour_2(getColour(hexList, 1))
-//                .colour_3(getColour(hexList, 2))
-//                .colour_4(getColour(hexList, 3))
-//                .colour_5(getColour(hexList, 4))
-//                .colour_6(getColour(hexList, 5))
-//                .colour_7(getColour(hexList, 6))
-//                .colour_8(getColour(hexList, 7))
-//                .colour_9(getColour(hexList, 8))
-//                .colour_10(getColour(hexList, 9))
-//                .colour_11(getColour(hexList, 10))
-//                .colour_12(getColour(hexList, 11))
-//                .build();
-//
-//        colourRepository.save(model);
-//    }
+    public List<String> getOrCreateColours(Long movieId, String hex) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        // Check if colours already exist for this movie
+        Optional<ColourModel> existingColoursOpt = colourRepository.findByMovie(movie);
+
+        if (existingColoursOpt.isPresent()) {
+            ColourModel existingColours = existingColoursOpt.get();
+            // Return existing colours as a list
+            return List.of(
+                    existingColours.getColour_1(), existingColours.getColour_2(),
+                    existingColours.getColour_3(), existingColours.getColour_4(),
+                    existingColours.getColour_5(), existingColours.getColour_6(),
+                    existingColours.getColour_7(), existingColours.getColour_8(),
+                    existingColours.getColour_9(), existingColours.getColour_10(),
+                    existingColours.getColour_11(), existingColours.getColour_12()
+            ).stream().filter(colour -> colour != null).collect(Collectors.toList());
+        }
+
+        // If no existing colours, fetch from API and save
+        List<String> coloursArray = getColours(hex);
+        saveColours(movieId, coloursArray);
+        return coloursArray;
+    }
 
     public void saveColours(Long movieId, List<String> coloursArray) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        if (colourRepository.existsByMovie(movie)) {
+            return; // Already exists, don't save again
+        }
 
         ColourModel model = ColourModel.builder()
                 .movie(movie)
@@ -98,7 +101,4 @@ public class ColourService {
     private String getColour(List<String> colours, int index) {
         return index < colours.size() ? colours.get(index) : null;
     }
-
-
-
 }
