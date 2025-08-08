@@ -16,7 +16,7 @@ public class PaletteToDuluxService {
 
     public List<DuluxColour> getClosestPaintMatches(List<String> paletteHexCodes) {
         List<DuluxColour> paintColours = duluxColourRepository.findAll();
-        List<Integer> indices = List.of(0, 4, 8, 11); // 1st, 5th, 9th, 12th
+        List<Integer> indices = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11); // 1st, 5th, 9th, 12th
         List<DuluxColour> matches = new ArrayList<>();
         for (int i : indices) {
             String hex = paletteHexCodes.get(i);

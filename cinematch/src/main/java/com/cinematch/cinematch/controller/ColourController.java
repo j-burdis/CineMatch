@@ -1,11 +1,8 @@
 package com.cinematch.cinematch.controller;
 
 import com.cinematch.cinematch.model.Movie;
-import com.cinematch.cinematch.service.MovieService;
+import com.cinematch.cinematch.service.*;
 import com.cinematch.cinematch.model.DuluxColour;
-import com.cinematch.cinematch.service.ImageService;
-import com.cinematch.cinematch.service.ColourService;
-import com.cinematch.cinematch.service.PaletteToDuluxService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +19,18 @@ public class ColourController {
     private final ImageService imageService;
     private final MovieService movieService;
     private final PaletteToDuluxService paletteToDuluxService;
+    private final PaintMatchService paintMatchService;
 
-    public ColourController(ColourService colourService, ImageService imageService, MovieService movieService, PaletteToDuluxService paletteToDuluxService) {
+    public ColourController(ColourService colourService,
+                            ImageService imageService,
+                            MovieService movieService,
+                            PaletteToDuluxService paletteToDuluxService,
+                            PaintMatchService paintMatchService) {
         this.colourService = colourService;
         this.imageService = imageService;
         this.movieService = movieService;
         this.paletteToDuluxService = paletteToDuluxService;
+        this.paintMatchService = paintMatchService;
     }
 
     @GetMapping("/image-colour")
@@ -46,11 +49,13 @@ public class ColourController {
     //route for colour api request
     @GetMapping("/colours/{movieId}/{hex}")
     public ModelAndView ColourPalette(@PathVariable Long movieId, @PathVariable String hex) {
-//
+
         List<String> ColoursArray = colourService.getColours(hex);
         colourService.saveColours(movieId, ColoursArray);
+
         List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(ColoursArray);
 
+        paintMatchService.savePaintMatches(movieId, closestMatches);
 
         //thymeleaf connection
         ModelAndView modelAndView = new ModelAndView("colour-palette");
