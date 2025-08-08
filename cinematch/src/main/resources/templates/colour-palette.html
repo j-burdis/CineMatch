@@ -23,19 +23,21 @@
             </div>
         </div>
 
-  
-        <div th:each="match : ${closestMatches}" style="display: inline-block;">
-            <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">
-                <p th:text="${match.colourName}"></p>
-                <p th:text="'Closest paint: ' + ${match.hexCode}"></p>
-                <a th:href="${match.purchaseUrl}"
-                   th:if="${match.purchaseUrl != null}"
-                   target="_blank">
-                    Buy on Dulux
-                </a>
+        <div th:with="seenColours=${new java.util.HashSet()}">
+            <div th:each="match : ${closestMatches}"
+                 th:if="${seenColours.add(match.hexCode)}"
+                 style="display: inline-block;">
+                <div class="colour-box" th:style="'background-color:' + ${match.hexCode}">
+                    <p th:text="${match.colourName}"></p>
+                    <p th:text="'Closest paint: ' + ${match.hexCode}"></p>
+                    <a th:href="${match.purchaseUrl}"
+                       th:if="${match.purchaseUrl != null}"
+                       target="_blank">
+                        Buy on Dulux
+                    </a>
+                </div>
             </div>
-         </div>
-    
+        </div>
 
 </main>
 
