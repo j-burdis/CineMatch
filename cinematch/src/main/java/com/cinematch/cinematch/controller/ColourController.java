@@ -1,5 +1,7 @@
 package com.cinematch.cinematch.controller;
 
+import com.cinematch.cinematch.model.Movie;
+import com.cinematch.cinematch.service.MovieService;
 import com.cinematch.cinematch.model.DuluxColour;
 import com.cinematch.cinematch.service.ImageService;
 import com.cinematch.cinematch.service.ColourService;
@@ -18,26 +20,32 @@ public class ColourController {
 
     private final ColourService colourService;
     private final ImageService imageService;
+    private final MovieService movieService;
     private final PaletteToDuluxService paletteToDuluxService;
 
-    public ColourController(ColourService colourService, ImageService imageService, PaletteToDuluxService paletteToDuluxService) {
+    public ColourController(ColourService colourService, ImageService imageService, MovieService movieService, PaletteToDuluxService paletteToDuluxService) {
         this.colourService = colourService;
         this.imageService = imageService;
+        this.movieService = movieService;
         this.paletteToDuluxService = paletteToDuluxService;
     }
 
-    //    TODO: edit once able to pass url into runImageTest()
     @GetMapping("/image-colour")
-    public String runImageTest(@RequestParam("url") String imageUrl) {
+    public String runImageTest(@RequestParam("url") String imageUrl, @RequestParam("movieId") Long movieId) {
+
         String hexCode = imageService.getDominantColour(imageUrl);
-        return "redirect:/colours/" + hexCode;
+
+        hexCode = hexCode.replace("#", "");
+        return "redirect:/colours/" + hexCode + "?movieId=" + movieId;
     }
+
 
     //route for colour api request
     @GetMapping("/colours/{hex}")
-    public ModelAndView ColourPalette(@PathVariable String hex) {
+    public ModelAndView ColourPalette(@PathVariable String hex, @RequestParam Long movieId) {
 
         List<String> ColoursArray = colourService.getColours(hex);
+        colourService.saveColours(movieId, ColoursArray);
         List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(ColoursArray);
 
 
@@ -50,3 +58,6 @@ public class ColourController {
 
     }
 }
+
+
+
