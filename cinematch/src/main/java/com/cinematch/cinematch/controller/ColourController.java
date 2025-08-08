@@ -31,19 +31,22 @@ public class ColourController {
     }
 
     @GetMapping("/image-colour")
-    public String runImageTest(@RequestParam("url") String imageUrl, @RequestParam("movieId") Long movieId) {
+    public String runImageTest(@RequestParam("url") String imageUrl,
+                               @RequestParam("movieId") Long movieId) {
 
         String hexCode = imageService.getDominantColour(imageUrl);
 
         hexCode = hexCode.replace("#", "");
-        return "redirect:/colours/" + hexCode + "?movieId=" + movieId;
+//        return "redirect:/colours/" + hexCode + "?movieId=" + movieId;
+        return "redirect:/colours/" + movieId + "/" + hexCode;
+
     }
 
 
     //route for colour api request
-    @GetMapping("/colours/{hex}")
-    public ModelAndView ColourPalette(@PathVariable String hex, @RequestParam Long movieId) {
-
+    @GetMapping("/colours/{movieId}/{hex}")
+    public ModelAndView ColourPalette(@PathVariable Long movieId, @PathVariable String hex) {
+//
         List<String> ColoursArray = colourService.getColours(hex);
         colourService.saveColours(movieId, ColoursArray);
         List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(ColoursArray);
