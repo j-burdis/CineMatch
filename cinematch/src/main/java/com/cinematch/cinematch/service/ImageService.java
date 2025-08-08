@@ -31,11 +31,8 @@ public class ImageService {
                     int[] rgbA = getRGBArray(rgb);
                     if (!isGray(rgbA))
                         colourCount.put(rgb, colourCount.getOrDefault(rgb, 0) + 1);
-
-
                 }
             }
-
 
             int dominantColorRGB = colourCount.entrySet()
                     .stream()

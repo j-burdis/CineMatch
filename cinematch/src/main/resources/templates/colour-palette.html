@@ -11,14 +11,11 @@
         <div th:each = "colour:${coloursArray}"
                  class="colour-box"
                  th:style="'background-color:' + ${colour}">
-
-
         </div>
-
-
-
     </main>
 
 
 </body>
 </html>
+<!--the div wrapping .colour-box elements) is the second div inside main, so the CSS selector matches.-->
+
