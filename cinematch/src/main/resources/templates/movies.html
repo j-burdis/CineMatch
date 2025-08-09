@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>CineMatch</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
-<h1>Popular Movies</h1>
-    <ul>
-        <li th:each="movie : ${movies}">
-            <h2 th:text="${movie.title}"></h2>
-            <a th:href="@{/image-colour(url=${movie.posterUrl}, movieId=${movie.id})}">
-                <img th:src="${movie.posterUrl}" alt="Poster"/>
-            </a>
-            <p th:if="${movie.releaseDate}" th:text="'Release Date: ' + ${movie.releaseDate}"></p>
-        </li>
-    </ul>
+
+    <main id="grid-container">
+
+        <article id="search-menu-container">
+            <p id="cinematch-title">CineMatch</p>
+            <p id="cinematch-subheading">colour palette generator</p>
+            <p id="prompt">make your room look cinematic</p>
+
+            <input id="searchbar" type="text" placeholder="Pick a movie, find your colours...">
+            <br>
+
+            <button id="go-button">go</button>
+        </article>
+
+
+
+        <article id="movie-selection-container">
+            <ul id="movie-list">
+                <li class="movie-poster" th:each="movie : ${movies}">
+                    <!--<h2 th:text="${movie.title}"></h2>-->
+                    <a th:href="@{/image-colour(url=${movie.posterUrl}, movieId=${movie.id})}">
+                        <img  th:src="${movie.posterUrl}" alt="Poster"/>
+                    </a>
+                    <!--<p th:if="${movie.releaseDate}" th:text="'Release Date: ' + ${movie.releaseDate}"></p>-->
+                </li>
+            </ul>
+        </article>
+
+    </main>
 </body>
+
 </html>
