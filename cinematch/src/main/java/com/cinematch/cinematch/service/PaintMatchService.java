@@ -9,6 +9,7 @@ import com.cinematch.cinematch.repository.PaintMatchRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,33 @@ public class PaintMatchService {
         this.movieRepository = movieRepository;
         this.paintMatchRepository = paintMatchRepository;
         this.duluxColourRepository = duluxColourRepository;
+    }
+
+    public List<DuluxColour> findMatchesByMovieId(Long movieId) {
+        return paintMatchRepository.findById(movieId)
+                .map(paintMatch -> {
+                    // Map paint_1 ... paint_12 to DuluxColour objects
+                    List<String> hexCodes = List.of(
+                            paintMatch.getPaint_1(),
+                            paintMatch.getPaint_2(),
+                            paintMatch.getPaint_3(),
+                            paintMatch.getPaint_4(),
+                            paintMatch.getPaint_5(),
+                            paintMatch.getPaint_6(),
+                            paintMatch.getPaint_7(),
+                            paintMatch.getPaint_8(),
+                            paintMatch.getPaint_9(),
+                            paintMatch.getPaint_10(),
+                            paintMatch.getPaint_11(),
+                            paintMatch.getPaint_12()
+                    );
+
+                    return hexCodes.stream()
+                            .filter(Objects::nonNull)
+                            .map(hex -> DuluxColour.builder().hexCode(hex).build())
+                            .toList();
+                })
+                .orElse(List.of());
     }
 
     public List<DuluxColour> getOrCreatePaintMatches(Long movieId, List<DuluxColour> matches) {

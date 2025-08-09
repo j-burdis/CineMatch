@@ -26,6 +26,25 @@ public class ColourService {
         this.colourRepository = colourRepository;
     }
 
+    public List<String> findColoursByMovieId(Long movieId) {
+        return colourRepository.findById(movieId)
+                .flatMap(colourModel -> Optional.of(List.of(
+                        colourModel.getColour_1(),
+                        colourModel.getColour_2(),
+                        colourModel.getColour_3(),
+                        colourModel.getColour_4(),
+                        colourModel.getColour_5(),
+                        colourModel.getColour_6(),
+                        colourModel.getColour_7(),
+                        colourModel.getColour_8(),
+                        colourModel.getColour_9(),
+                        colourModel.getColour_10(),
+                        colourModel.getColour_11(),
+                        colourModel.getColour_12()
+                )))
+                .orElse(List.of()); // return empty list if none
+    }
+
     //api call to colour api
     public List<String> getColours(String hex) {
         ColourDTO resp = webClient.get()
