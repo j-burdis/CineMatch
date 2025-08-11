@@ -5,17 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineMatch</title>
-    <link rel="stylesheet" th:href="@{/styles-colours.css}" />
+    <link rel="stylesheet" th:href="@{/movie-page.css}" />
 </head>
 
 <body>
-    <main id="main-container">
-      
-        <div>
-          <a th:href="@{'/movies#movie-' + ${movieDetail.id}}">Back to search results</a>
-        </div>
-      
+    <main class="main-container">
         <p id="cinematch-title">CineMatch</p>
+
+        <a id="back-button" th:href="@{'/movies#movie-' + ${movieDetail.id}}">Back to search results</a>
 
         <h2 id="movie-title" th:text="${title}"></h2>
 
