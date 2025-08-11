@@ -1,0 +1,169 @@
+/*COLOUR-PALETTE.HTML STYLING*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap');
+
+/*GENERAL STYLES AND LAYOUT*/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #FBF4EE;
+  font-family: 'Roboto', sans-serif;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  min-height: 930px
+}
+
+main {
+  display: grid;
+  width: 100vw;
+  max-width: 2000px;
+  padding: 50px;
+}
+
+
+a {
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+a:hover{
+  color: #1E1D17;
+}
+
+a:active{
+  color: #FBF4EE;
+}
+
+
+/*PAGE ELEMENTS*/
+#cinematch-title {
+    grid-row: 1;
+    color: #E18E26;
+    font-size: 45px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+#back-button{
+    grid-row: 2;
+    font-size: 15px;
+    font-weight: 500;
+    color: #E18E26;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+#back-button:hover{
+  color: #1E1D17;
+}
+
+#back-button:active{
+  color: #FBF4EE;
+}
+
+
+/*movie information and palettes*/
+#movie-title{
+    grid-row: 3;
+    font-size: 25px;
+    font-weight: 600;
+    color: #1E1D17;
+    margin-bottom: 5px;
+}
+
+#movie-poster-section{
+    grid-row: 4;
+
+}
+
+#movie-poster-section img{
+    width: auto;
+    height: 400px;
+    object-fit: cover;
+    object-position: 50% 35%;
+}
+
+#colour-palette{
+    grid-row: 5;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+#prompt {
+    grid-row: 6;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1E1D17;
+    margin-bottom: 0px;
+}
+
+#matched-colour-palette{
+    grid-row: 7;
+
+}
+
+
+/*colour palettes styling*/
+.colour-box {
+     width: 50px;
+     height: 70px;
+     margin: 0px;
+}
+
+.matched-colour-box {
+     width: 100px;
+     height: 50px;
+     margin: 0px;
+}
+
+.dulux-paint-name{
+    font-size: 12px;
+    font-weight: 400;
+    color: #1E1D17;
+    padding: 5px;
+}
+
+.dulux-buy-link{
+    font-size: 12px;
+    font-weight: 500;
+    color: #E18E26;
+    margin-top: 1px;
+}
+
+
+/*MEDIA QUERIES and WEBKIT/ FIREFOX*/
+/* center content vertically on taller screens */
+@media (min-height: 900px) {
+  html, body {
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* Chrome, Safari, Edge Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FBF4EE;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E18E26;
+  border-radius: 6px;
+  border: 3px solid #FBF4EE;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E18E26 #FBF4EE;
+}
