@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>CineMatch</title>
@@ -24,7 +25,7 @@
 
         <article id="movie-selection-container">
             <ul id="movie-list">
-                <li class="movie-poster" th:each="movie : ${movies}">
+                <li class="movie-poster" th:each="movie : ${movies}" th:id="'movie-' + ${movie.id}">
                     <!--<h2 th:text="${movie.title}"></h2>-->
                     <a th:href="@{/image-colour(url=${movie.posterUrl}, movieId=${movie.id})}">
                         <img  th:src="${movie.posterUrl}" alt="Poster"/>
