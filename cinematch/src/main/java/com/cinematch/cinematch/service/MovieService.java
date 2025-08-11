@@ -101,7 +101,7 @@ public class MovieService {
         List<Movie> apiResults = List.of();
         if (response != null && response.getResults() != null) {
             apiResults = response.getResults().stream()
-                    // ✅ skip movies with no poster
+                    // skip movies with no poster
                     .filter(apiMovie -> apiMovie.getPosterPath() != null && !apiMovie.getPosterPath().isBlank())
                     .map(ApiMovie::toEntity)
                     .map(this::saveMovieIfNotExists)
