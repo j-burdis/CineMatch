@@ -45,7 +45,7 @@ public class Movie {
         this.release_date = releaseDate;
         this.dominantColour = dominantColour;
 
-        this.posterUrl = posterPath != null ? "https://image.tmdb.org/t/p/w200" + posterPath : null;
+        this.posterUrl = posterPath != null ? "https://image.tmdb.org/t/p/w780" + posterPath : null;
 
         if (releaseDate != null && !releaseDate.isEmpty()) {
             try {
