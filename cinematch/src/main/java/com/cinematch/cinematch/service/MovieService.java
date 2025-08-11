@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,10 +56,15 @@ public class MovieService {
         return response.getResults().stream()
                 .map(ApiMovie::toEntity)
                 .map(this::saveMovieIfNotExists)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
     private Movie saveMovieIfNotExists(Movie movie) {
+        if (movie.getPosterUrl() == null || movie.getPosterUrl().isBlank()) {
+            return null; // skip save if poster url is blank
+        }
+
         // check if movie already exists by title and release date
         return movieRepository.findById(movie.getId())
                 .orElseGet(() -> {
@@ -83,10 +90,10 @@ public class MovieService {
     }
 
     public List<Movie> searchMovies(String query) {
-        // 1. Search DB first
+        // search DB first
         List<Movie> dbResults = movieRepository.searchByTitle(query);
 
-        // 2. Always query TMDb too (could be rate-limited if needed)
+        // query TMDb too (could be rate-limited if needed)
         String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=" + query;
         RestTemplate restTemplate = new RestTemplate();
         MovieResponse response = restTemplate.getForObject(url, MovieResponse.class);
@@ -94,13 +101,17 @@ public class MovieService {
         List<Movie> apiResults = List.of();
         if (response != null && response.getResults() != null) {
             apiResults = response.getResults().stream()
+                    // ✅ skip movies with no poster
+                    .filter(apiMovie -> apiMovie.getPosterPath() != null && !apiMovie.getPosterPath().isBlank())
                     .map(ApiMovie::toEntity)
-                    .map(this::saveMovieIfNotExists) // ✅ also saves to DB
+                    .map(this::saveMovieIfNotExists)
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         }
 
-        // 3. Merge both lists without duplicates
-        return mergeMovieLists(dbResults, apiResults);
+        // merge both lists without duplicates
+        List<Movie> mergedResults = mergeMovieLists(dbResults, apiResults);
+        return sortByRelevance(mergedResults, query);
     }
 
 
@@ -110,6 +121,23 @@ public class MovieService {
                         Collectors.toMap(Movie::getId, m -> m, (m1, m2) -> m1),
                         map -> new ArrayList<>(map.values())
                 ));
+    }
+
+    private List<Movie> sortByRelevance(List<Movie> movies, String query) {
+        String lowerQuery = query.toLowerCase();
+
+        return movies.stream()
+                .sorted(Comparator.comparingInt((Movie m) -> relevanceScore(m, lowerQuery)).reversed())
+                .collect(Collectors.toList());
+    }
+
+    private int relevanceScore(Movie movie, String query) {
+        String title = movie.getTitle().toLowerCase();
+
+        if (title.equals(query)) return 3;        // exact match
+        if (title.startsWith(query)) return 2;    // starts with
+        if (title.contains(query)) return 1;      // partial match
+        return 0;                                 // weak match
     }
 
 }
