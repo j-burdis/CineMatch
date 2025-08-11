@@ -15,10 +15,10 @@
             <p id="cinematch-subheading">colour palette generator</p>
             <p id="prompt">make your room look cinematic</p>
 
-            <input id="searchbar" type="text" placeholder="Pick a movie, find your colours...">
-            <br>
-
-            <button id="go-button">go</button>
+            <form action="/movies/search" method="get">
+                <input id="searchbar" name="q" type="text" placeholder="Pick a movie, find your colours..." required>
+                <button id="go-button" type="submit">Go</button>
+            </form>
         </article>
 
 

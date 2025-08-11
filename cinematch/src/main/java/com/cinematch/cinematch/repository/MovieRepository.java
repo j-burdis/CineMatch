@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,4 +20,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     // Alternative method - find by title only if you prefer simpler duplicate checking
     Optional<Movie> findByTitle(String title);
+
+    @Query("SELECT m FROM Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Movie> searchByTitle(@Param("query") String query);
 }

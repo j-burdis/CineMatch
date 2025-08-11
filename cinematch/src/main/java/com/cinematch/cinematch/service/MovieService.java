@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MovieService {
@@ -79,4 +81,35 @@ public class MovieService {
     public Movie findById(Long movieId) {
         return movieRepository.findById(movieId).orElse(null);
     }
+
+    public List<Movie> searchMovies(String query) {
+        // 1. Search DB first
+        List<Movie> dbResults = movieRepository.searchByTitle(query);
+
+        // 2. Always query TMDb too (could be rate-limited if needed)
+        String url = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey + "&query=" + query;
+        RestTemplate restTemplate = new RestTemplate();
+        MovieResponse response = restTemplate.getForObject(url, MovieResponse.class);
+
+        List<Movie> apiResults = List.of();
+        if (response != null && response.getResults() != null) {
+            apiResults = response.getResults().stream()
+                    .map(ApiMovie::toEntity)
+                    .map(this::saveMovieIfNotExists) // ✅ also saves to DB
+                    .collect(Collectors.toList());
+        }
+
+        // 3. Merge both lists without duplicates
+        return mergeMovieLists(dbResults, apiResults);
+    }
+
+
+    private List<Movie> mergeMovieLists(List<Movie> list1, List<Movie> list2) {
+        return Stream.concat(list1.stream(), list2.stream())
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toMap(Movie::getId, m -> m, (m1, m2) -> m1),
+                        map -> new ArrayList<>(map.values())
+                ));
+    }
+
 }
