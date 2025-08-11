@@ -52,7 +52,7 @@ public class MovieDetailsService {
 
         Movie movie = movieService.findById(movieId);
 
-        ModelAndView mav = new ModelAndView("show-movie");
+        ModelAndView mav = new ModelAndView("colour-palette");
         mav.addObject("coloursArray", coloursArray);
         mav.addObject("closestMatches", finalMatches);
         mav.addObject("posterUrl", movie.getPosterUrl());
