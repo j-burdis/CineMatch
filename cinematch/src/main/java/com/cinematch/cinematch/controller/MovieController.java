@@ -28,6 +28,11 @@ public class MovieController {
 //        model.addAttribute("movies", movieService.getPopularMovies());
 //        return "movies";
 //    }
+    @GetMapping("/")
+    public String redirectToMovies() {
+        return "redirect:/movies";
+    }
+
 
     @GetMapping("/movies")
     public String showMovies(Model model) {

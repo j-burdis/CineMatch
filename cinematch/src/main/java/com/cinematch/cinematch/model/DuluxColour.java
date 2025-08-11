@@ -31,8 +31,8 @@ public class DuluxColour {
 
         String urlSlug = colourName.toLowerCase()
                 .trim()
-                .replaceAll("\\s+", "-")
-                .replaceAll("\\s*\\d+$", "");
+                .replaceAll("\\s+(?=\\d)", "-")  // replace spaces before numbers with hyphens
+                .replaceAll("\\s+", "-");        // replace remaining spaces between words
 
         return "https://www.dulux.co.uk/en/colour-details/" + urlSlug;
     }
