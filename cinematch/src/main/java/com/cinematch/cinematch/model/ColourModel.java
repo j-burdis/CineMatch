@@ -21,6 +21,7 @@ public class ColourModel {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
+//    primary palette
     @Column
     private String colour_1;
 
@@ -57,5 +58,40 @@ public class ColourModel {
     @Column
     private String colour_12;
 
+//    secondary palette
+    @Column
+    private String secondary_colour_1;
 
+    @Column
+    private String secondary_colour_2;
+
+    @Column
+    private String secondary_colour_3;
+
+    @Column
+    private String secondary_colour_4;
+
+    @Column
+    private String secondary_colour_5;
+
+    @Column
+    private String secondary_colour_6;
+
+    @Column
+    private String secondary_colour_7;
+
+    @Column
+    private String secondary_colour_8;
+
+    @Column
+    private String secondary_colour_9;
+
+    @Column
+    private String secondary_colour_10;
+
+    @Column
+    private String secondary_colour_11;
+
+    @Column
+    private String secondary_colour_12;
 }
