@@ -39,10 +39,11 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task stage(dependsOn: ['build', 'clean'])
+tasks.register('stage') {
+	dependsOn 'build', 'clean'
+}
 build.mustRunAfter clean
 
-// Ensure the jar is executable
 jar {
 	manifest {
 		attributes(
