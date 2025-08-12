@@ -27,7 +27,10 @@ public class MovieService {
     public MovieService(MovieRepository movieRepository,ImageService imageService) {
         this.movieRepository = movieRepository;
         this.imageService = imageService;
-        Dotenv dotenv = Dotenv.load();
+//        Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure()
+                .ignoreIfMissing()
+                .load();
         this.apiKey = dotenv.get("TMDB_API_KEY");
     }
 
