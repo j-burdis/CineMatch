@@ -74,7 +74,7 @@
             <article th:each="match : ${closestMatches}" th:if="${seenColours.add(match.hexCode)}" style="display: inline-block;">
             </article>
         </section>
-    <div class="bedroom-preview">
+    <div class="bedroom-preview1">
         <img src="/images/bedroom/Base_image.jpg" class="bedroom-base" alt="Bedroom">
         <div id="bedroom-overlay"
              class = "mask_overlay"
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div class="bedroom-preview">
+    <div class="bedroom-preview1">
         <img th:src="@{/images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
 
         <div id="bedroom2-wall1-overlay"
@@ -113,36 +113,47 @@
         </div>
         <div id="bedroom2-ceiling-overlay"
              class = "mask_overlay"
-             th:style="'-webkit-mask-image:url(' + @{//images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
+             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
                         mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
+        </div>
+        <div id="bedroom2-coving-overlay"
+             class = "mask_overlay"
+             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');
+                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
         </div>
     </div>
 
     <script>
         function tryPaintA(button) {
             const colour = button.getAttribute("data-colour");
+
+
             const ceiling = document.getElementById("bedroom-overlay");
             const wall1 = document.getElementById("wall-overlay");
-
             if (ceiling) ceiling.style.backgroundColor = colour;
             if (wall1) wall1.style.backgroundColor = colour;
 
-            <---room 2--->
-            const colour = button.getAttribute("data-colour");
+
             const ceiling2 = document.getElementById("bedroom2-ceiling-overlay");
             const wall21 = document.getElementById("bedroom2-wall1-overlay");
-
             if (ceiling2) ceiling2.style.backgroundColor = colour;
             if (wall21) wall21.style.backgroundColor = colour;
-
-
         }
+
         function tryPaintB(button) {
             const colour = button.getAttribute("data-colour");
+
+
             const nightstand = document.getElementById("nightstand-overlay");
             const wall2 = document.getElementById("wall2-overlay");
             if (nightstand) nightstand.style.backgroundColor = colour;
             if (wall2) wall2.style.backgroundColor = colour;
+
+
+            const coving2 = document.getElementById("bedroom2-coving-overlay");
+            const wall22 = document.getElementById("bedroom2-wall2-overlay");
+            if (coving2) coving2.style.backgroundColor = colour;
+            if (wall22) wall22.style.backgroundColor = colour;
 
         }
     </script>
