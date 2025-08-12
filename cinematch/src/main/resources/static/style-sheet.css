@@ -4,7 +4,10 @@ body {
     background-color: #FBF4EE;
     margin: 0px;
     max-height: 100vh;
+    max-width: 2265px;
     overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*MOVIES.HTML STYLING*/
@@ -13,12 +16,14 @@ body {
     display: grid;
     grid-template-columns: 0.3fr 1fr 2fr 0.5fr;
     grid-template-rows: auto;
+    width: 100%;
 }
 
 #search-menu-container {
     grid-row: 2;
     grid-column: 3;
     margin-left: 30px;
+    width: 100%;
 }
 
 #movie-selection-container {
@@ -87,6 +92,7 @@ body {
     border-radius: 10px;
     padding: 2px 10px;
     width: 90%;
+    max-width:1000px;
     box-sizing: border-box;
 }
 
@@ -139,9 +145,11 @@ body {
 
 /*posters*/
 .movie-poster img{
-   width: auto;
-   height: 400px;
-   object-fit: cover;
-   object-position: 50% 35%;
+   width: 100%;       /* fill the container width */
+     max-width: 600px;  /* or whatever max size you want */
+     height: auto;      /* keep aspect ratio */
+     object-fit: cover;
+     object-position: 50% 35%;
+     margin: 0 auto;
 }
 

@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineMatch</title>
+
     <link rel="stylesheet" th:href="@{/styles-colours.css}" />
     <link rel="stylesheet" th:href="@{/overlays.css}" />
+
+    <link rel="stylesheet" th:href="@{/movie-page.css}" />
+
 </head>
 <body>
+
 <main id="main-container">
 
     <div>
@@ -38,7 +43,6 @@
                  th:style="'background-color:' + ${match.hexCode}">
                 <p class="dulux-paint-name" th:text="${match.colourName}"></p>
             </div>
-
 
             <button type="button"
                     th:attr="data-colour=${match.hexCode}"
