@@ -16,7 +16,7 @@
 <main id="main-container">
 
     <div>
-        <a th:href="@{'/movies#movie-' + ${movieDetail.id}}">Back to search results</a>
+        <a id="back-button" th:href="@{'/movies#movie-' + ${movieDetail.id}}">Back to search results</a>
     </div>
 
     <p id="cinematch-title">CineMatch</p>
@@ -72,8 +72,10 @@
         <section id="matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
             <p id="prompt">Dulux Paints we suggest :</p>
             <article th:each="match : ${closestMatches}" th:if="${seenColours.add(match.hexCode)}" style="display: inline-block;">
-
-
+            </article>
+        </section>
+    <div class="bedroom-preview">
+        <img src="/images/bedroom/Base_image.jpg" class="bedroom-base" alt="Bedroom">
         <div id="bedroom-overlay"
              class = "mask_overlay"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');
