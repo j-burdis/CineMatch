@@ -26,7 +26,6 @@
         </section>
 
         <section id="secondary-colour-palette" th:if="${secondaryColours != null}">
-            <p>Secondary Colour Palette :</p>
             <article class="colour-box" th:each="colour : ${secondaryColours}" th:style="'background-color:' + ${colour}">
             </article>
         </section>
