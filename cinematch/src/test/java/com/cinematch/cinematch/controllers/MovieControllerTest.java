@@ -184,6 +184,6 @@ public class MovieControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("error/404"))
                 .andExpect(model().attribute("errorMessage", "Movie not found"));
-    }
 
+    }
 }

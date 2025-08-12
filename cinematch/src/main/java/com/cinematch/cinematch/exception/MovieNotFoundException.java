@@ -6,4 +6,3 @@ package com.cinematch.cinematch.exception;
         }
     }
 
-
