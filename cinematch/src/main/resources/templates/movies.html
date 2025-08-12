@@ -10,18 +10,25 @@
 
     <main id="grid-container">
 
-        <article id="search-menu-container">
+        <section id="search-menu-container">
             <p id="cinematch-title">CineMatch</p>
             <p id="cinematch-subheading">colour palette generator</p>
             <p id="prompt">make your room look cinematic</p>
 
-            <form action="/movies/search" method="get">
-                <input id="searchbar" name="q" type="text" placeholder="Pick a movie, find your colours..." required>
-                <button id="go-button" type="submit">Go</button>
-            </form>
-        </article>
+            <article class="search-form">
+                <form  action="/movies/search" method="get">
+                    <input id="searchbar"  name="q" type="text" placeholder="Pick a movie, find your colours..." required>
+                    <button id="go-button" type="submit">go</button>
+                    <button id="filter-button">filter</button>
+                </form>
+            </article>
 
-
+            <article id="filter-buttons">
+                <button id="popular-button">popular</button>
+                <button id="top-rated-button">top rated</button>
+                <button id="upcoming-button">upcoming</button>
+            </article>
+        </section>
 
         <article id="movie-selection-container">
             <ul id="movie-list">
