@@ -32,13 +32,20 @@ public class MovieDetailsService {
     public ModelAndView buildMovieDetail(Long movieId) {
 
         // Try to load existing colours
-        List<String> coloursArray = colourService.findColoursByMovieId(movieId);
+        List<String> dominantPalette = colourService.findColoursByMovieId(movieId);
+        List<String> secondaryPalette = colourService.findSecondaryColoursByMovieId(movieId);
 
         // If none found, generate them from poster image
-        if (coloursArray.isEmpty()) {
+        if (dominantPalette.isEmpty() || secondaryPalette.isEmpty()) {
             Movie movie = movieService.findById(movieId);
-            String hexCode = imageService.getDominantColour(movie.getPosterUrl()).replace("#", "");
-            coloursArray = colourService.getOrCreateColours(movieId, hexCode);
+
+            String dominantHex = imageService.getDominantColour(movie.getPosterUrl()).replace("#", "");
+            dominantPalette = colourService.getColours(dominantHex);
+
+            String secondaryHex = imageService.getSecondaryColour(movie.getPosterUrl(), dominantHex).replace("#", "");
+            secondaryPalette = colourService.getColours(secondaryHex);
+
+            colourService.saveColours(movieId, dominantPalette, secondaryPalette);
         }
 
         // Try to load existing matches
@@ -46,14 +53,15 @@ public class MovieDetailsService {
 
         // If none found, generate from colours
         if (finalMatches.isEmpty()) {
-            List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(coloursArray);
+            List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(dominantPalette);
             finalMatches = paintMatchService.getOrCreatePaintMatches(movieId, closestMatches);
         }
 
         Movie movie = movieService.findById(movieId);
 
         ModelAndView mav = new ModelAndView("colour-palette");
-        mav.addObject("coloursArray", coloursArray);
+        mav.addObject("coloursArray", dominantPalette);
+        mav.addObject("secondaryColours", secondaryPalette);
         mav.addObject("closestMatches", finalMatches);
         mav.addObject("posterUrl", movie.getPosterUrl());
         mav.addObject("title", movie.getTitle());

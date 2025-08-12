@@ -64,10 +64,15 @@
             </a>
         </article>
     </section>
+        <section id="secondary-colour-palette" th:if="${secondaryColours != null}">
+            <article class="colour-box" th:each="colour : ${secondaryColours}" th:style="'background-color:' + ${colour}">
+            </article>
+        </section>
 
+        <section id="matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
+            <p id="prompt">Dulux Paints we suggest :</p>
+            <article th:each="match : ${closestMatches}" th:if="${seenColours.add(match.hexCode)}" style="display: inline-block;">
 
-    <div class="bedroom-preview">
-        <img th:src="@{/images/bedroom/Base_image.jpg}" class="bedroom-base" />
 
         <div id="bedroom-overlay"
              class = "mask_overlay"

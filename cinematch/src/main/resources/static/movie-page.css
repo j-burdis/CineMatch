@@ -95,6 +95,13 @@ a:active{
     margin-top: 5px;
 }
 
+#secondary-colour-palette{
+    grid-row: 5;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
 #prompt {
     grid-row: 6;
     font-size: 18px;
