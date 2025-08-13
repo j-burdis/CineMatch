@@ -350,16 +350,6 @@ button{
  display: block;
 }
 
-.movie-info-overlay {
- position: absolute;
- bottom: 0;
- left: 0;
- right: 0;
- background: linear-gradient(transparent, rgba(30, 29, 23, 0.9));
- padding: 20px 15px 15px;
- color: #FBF4EE;
-}
-
 .recommended-title {
  font-size: 14px;
  font-weight: 500;
@@ -410,9 +400,7 @@ button{
      font-size: 12px;
  }
 
- .movie-info-overlay {
-     padding: 15px 10px 10px;
- }
+
 
  #recommendations-heading {
      font-size: 18px;
