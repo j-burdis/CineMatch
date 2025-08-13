@@ -54,6 +54,90 @@ public class PaintMatchService {
                 .orElse(List.of());
     }
 
+    public List<DuluxColour> findSecondaryMatchesByMovieId(Long movieId) {
+        return paintMatchRepository.findById(movieId)
+                .map(paintMatch -> {
+                    List<String> hexCodes = List.of(
+                            paintMatch.getSecondary_paint_1(),
+                            paintMatch.getSecondary_paint_2(),
+                            paintMatch.getSecondary_paint_3(),
+                            paintMatch.getSecondary_paint_4(),
+                            paintMatch.getSecondary_paint_5(),
+                            paintMatch.getSecondary_paint_6(),
+                            paintMatch.getSecondary_paint_7(),
+                            paintMatch.getSecondary_paint_8(),
+                            paintMatch.getSecondary_paint_9(),
+                            paintMatch.getSecondary_paint_10(),
+                            paintMatch.getSecondary_paint_11(),
+                            paintMatch.getSecondary_paint_12()
+                    );
+
+                    return hexCodes.stream()
+                            .filter(Objects::nonNull)
+                            .map(hex -> DuluxColour.builder().hexCode(hex).build())
+                            .toList();
+                })
+                .orElse(List.of());
+    }
+
+    public List<DuluxColour> getOrCreateSecondaryPaintMatches(Long movieId, List<DuluxColour> matches) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        PaintMatch existingMatches = paintMatchRepository.findByMovie(movie).orElse(null);
+
+        if (existingMatches != null && existingMatches.getSecondary_paint_1() != null) {
+            return convertHexCodesToDuluxColoursSecondary(existingMatches);
+        }
+
+        if (existingMatches == null) {
+            existingMatches = PaintMatch.builder().movie(movie).build();
+        }
+
+        // Save secondary paints
+        existingMatches.setSecondary_paint_1(getHex(matches, 0));
+        existingMatches.setSecondary_paint_2(getHex(matches, 1));
+        existingMatches.setSecondary_paint_3(getHex(matches, 2));
+        existingMatches.setSecondary_paint_4(getHex(matches, 3));
+        existingMatches.setSecondary_paint_5(getHex(matches, 4));
+        existingMatches.setSecondary_paint_6(getHex(matches, 5));
+        existingMatches.setSecondary_paint_7(getHex(matches, 6));
+        existingMatches.setSecondary_paint_8(getHex(matches, 7));
+        existingMatches.setSecondary_paint_9(getHex(matches, 8));
+        existingMatches.setSecondary_paint_10(getHex(matches, 9));
+        existingMatches.setSecondary_paint_11(getHex(matches, 10));
+        existingMatches.setSecondary_paint_12(getHex(matches, 11));
+
+        paintMatchRepository.save(existingMatches);
+
+        return matches;
+    }
+
+    private List<DuluxColour> convertHexCodesToDuluxColoursSecondary(PaintMatch paintMatch) {
+        return List.of(
+                        paintMatch.getSecondary_paint_1(),
+                        paintMatch.getSecondary_paint_2(),
+                        paintMatch.getSecondary_paint_3(),
+                        paintMatch.getSecondary_paint_4(),
+                        paintMatch.getSecondary_paint_5(),
+                        paintMatch.getSecondary_paint_6(),
+                        paintMatch.getSecondary_paint_7(),
+                        paintMatch.getSecondary_paint_8(),
+                        paintMatch.getSecondary_paint_9(),
+                        paintMatch.getSecondary_paint_10(),
+                        paintMatch.getSecondary_paint_11(),
+                        paintMatch.getSecondary_paint_12()
+                ).stream()
+                .filter(hex -> hex != null)
+                .map(hex -> duluxColourRepository.findByHexCode(hex).orElseGet(() -> {
+                    DuluxColour colour = new DuluxColour();
+                    colour.setHexCode(hex);
+                    return colour;
+                }))
+                .collect(Collectors.toList());
+    }
+
+
     public List<DuluxColour> getOrCreatePaintMatches(Long movieId, List<DuluxColour> matches) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));

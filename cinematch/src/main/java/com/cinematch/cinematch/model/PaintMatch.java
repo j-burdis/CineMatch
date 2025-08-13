@@ -32,4 +32,18 @@ public class PaintMatch {
     private String paint_10;
     private String paint_11;
     private String paint_12;
+
+    // Secondary matches
+    private String secondary_paint_1;
+    private String secondary_paint_2;
+    private String secondary_paint_3;
+    private String secondary_paint_4;
+    private String secondary_paint_5;
+    private String secondary_paint_6;
+    private String secondary_paint_7;
+    private String secondary_paint_8;
+    private String secondary_paint_9;
+    private String secondary_paint_10;
+    private String secondary_paint_11;
+    private String secondary_paint_12;
 }

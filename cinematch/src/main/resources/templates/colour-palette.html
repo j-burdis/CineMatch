@@ -64,16 +64,44 @@
             </a>
         </article>
     </section>
-        <section id="secondary-colour-palette" th:if="${secondaryColours != null}">
-            <article class="colour-box" th:each="colour : ${secondaryColours}" th:style="'background-color:' + ${colour}">
-            </article>
-        </section>
 
-        <section id="matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
-            <p id="prompt">Dulux Paints we suggest :</p>
-            <article th:each="match : ${closestMatches}" th:if="${seenColours.add(match.hexCode)}" style="display: inline-block;">
-            </article>
-        </section>
+
+    <section id="secondary-colour-palette" th:if="${secondaryColours != null}">
+        <article class="colour-box" th:each="colour : ${secondaryColours}" th:style="'background-color:' + ${colour}">
+        </article>
+    </section>
+
+    <section id="secondary-matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
+        <p id="prompt">Dulux Paints for Secondary Palette:</p>
+        <article th:each="match : ${closestSecondaryMatches}"
+                 th:if="${seenColours.add(match.hexCode)}"
+                 style="display: inline-block;">
+            <div class="matched-colour-box"
+                 th:style="'background-color:' + ${match.hexCode}">
+                <p class="dulux-paint-name" th:text="${match.colourName}"></p>
+            </div>
+
+            <button type="button"
+                    th:attr="data-colour=${match.hexCode}"
+                    onclick="tryPaintA(this)">
+                Theme A
+            </button>
+
+            <button type="button"
+                    th:attr="data-colour=${match.hexCode}"
+                    onclick="tryPaintB(this)">
+                Theme B
+            </button>
+
+            <a class="dulux-buy-link"
+               th:href="${match.purchaseUrl}"
+               th:if="${match.purchaseUrl != null}"
+               target="_blank">
+                buy
+            </a>
+        </article>
+    </section>
+
     <div class="bedroom-preview1">
         <img th:src="@{/Images/bedroom/Base_image.jpg}" class="bedroom-base" alt="Bedroom">
         <div id="bedroom-overlay"
@@ -158,4 +186,4 @@
 
 </main>
 </body>
-</html></html>
+</html>
