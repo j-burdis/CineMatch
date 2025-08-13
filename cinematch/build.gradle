@@ -38,3 +38,18 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('stage') {
+	dependsOn 'build', 'clean'
+}
+build.mustRunAfter clean
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.cinematch.cinematch.CinematchApplication'
+		)
+	}
+	archiveBaseName = 'cinematch'
+	archiveVersion = '0.0.1-SNAPSHOT'
+}

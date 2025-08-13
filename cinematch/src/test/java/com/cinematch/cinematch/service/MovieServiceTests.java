@@ -6,10 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -58,4 +60,22 @@ public class MovieServiceTests {
         assertEquals(apiMovies, result);
         verify(spyService).fetchAndSaveMoviesFromApi();
     }
+
+
+//    public Movie findById(Long movieId) {
+//        return movieRepository.findById(movieId).orElse(null);
+//    }
+    @Test
+    void shouldReturnMovieWhenFound() {
+        Long id = 1L;
+        Movie movie = new Movie(id, "Test Movie", "url", "2025-01-01", "Colour");
+        //Informs mock movieRepository that if findById(1L) is called, return Optional that contains that movie
+        Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
+        //calls the real movieService.findById() method which calls the mocked repository - because of @Mock private MovieRepository movieRepository;
+        Movie result = movieService.findById(id);
+        //checks movie returned by service is same object in Movie movie = new Movie()
+        assertEquals(movie, result);
+    }
+
+
 }
