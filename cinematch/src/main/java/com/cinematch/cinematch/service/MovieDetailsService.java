@@ -50,11 +50,16 @@ public class MovieDetailsService {
 
         // Try to load existing matches
         List<DuluxColour> finalMatches = paintMatchService.findMatchesByMovieId(movieId);
-
         // If none found, generate from colours
         if (finalMatches.isEmpty()) {
             List<DuluxColour> closestMatches = paletteToDuluxService.getClosestPaintMatches(dominantPalette);
             finalMatches = paintMatchService.getOrCreatePaintMatches(movieId, closestMatches);
+        }
+
+        List<DuluxColour> finalSecondaryMatches = paintMatchService.findSecondaryMatchesByMovieId(movieId);
+        if (finalSecondaryMatches.isEmpty()) {
+            List<DuluxColour> closestSecondaryMatches = paletteToDuluxService.getClosestPaintMatches(secondaryPalette);
+            finalSecondaryMatches = paintMatchService.getOrCreateSecondaryPaintMatches(movieId, closestSecondaryMatches);
         }
 
         Movie movie = movieService.findById(movieId);
@@ -63,6 +68,7 @@ public class MovieDetailsService {
         mav.addObject("coloursArray", dominantPalette);
         mav.addObject("secondaryColours", secondaryPalette);
         mav.addObject("closestMatches", finalMatches);
+        mav.addObject("closestSecondaryMatches", finalSecondaryMatches);
         mav.addObject("posterUrl", movie.getPosterUrl());
         mav.addObject("title", movie.getTitle());
 

@@ -151,6 +151,7 @@ button{
     font-weight: 600;
 }
 
+
 #dulux-colours-container{
     grid-row: 2;
     grid-column: 1;
@@ -158,6 +159,7 @@ button{
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 
 .matched-colour-palette{
 }
@@ -169,6 +171,7 @@ button{
     flex-direction: column;
     flex-wrap: wrap;
 }
+
 
 #room-selector{
 }
@@ -245,7 +248,7 @@ button{
 
 /*VISUALISER SECTION*/
 #visualiser {
-    grid-row: 8;
+    grid-row: 4;
 }
 
 .bedroom-preview1 {
@@ -272,3 +275,25 @@ button{
     mask-repeat: no-repeat;
     mask-size: contain;
 }
+
+.bedroom-preview2 {
+    position: relative;
+    display: inline-block;
+    max-width: 407px;   /* or whatever max width you want */
+    max-height: 525px;  /* optional, based on your overlay aspect ratio */
+}
+.bedroom-preview2 .bedroom-base {
+    width: 100%;    /* fill container horizontally */
+    height: 100%;   /* fill container vertically */
+}
+.bedroom-preview2 .mask_overlay2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 407px;
+    height: 525px;
+    mix-blend-mode: multiply;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-size: cover;
