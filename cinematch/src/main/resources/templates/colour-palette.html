@@ -98,29 +98,27 @@
         </div>
     </div>
 
-    <div class="bedroom-preview1">
+    <div class="bedroom-preview2">
         <img th:src="@{/images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
 
-        <div id="bedroom2-wall1-overlay"
-             class = "mask_overlay"
+        <div id="bedroom2-wall1-overlay" class="mask_overlay2"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
+                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
         </div>
-        <div id="bedroom2-wall2-overlay"
-             class = "mask_overlay"
+        <div id="bedroom2-wall2-overlay" class="mask_overlay2"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
+                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
         </div>
-        <div id="bedroom2-ceiling-overlay"
-             class = "mask_overlay"
+        <div id="bedroom2-ceiling-overlay" class="mask_overlay2"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
+                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
         </div>
-        <div id="bedroom2-coving-overlay"
-             class = "mask_overlay"
+        <div id="bedroom2-coving-overlay" class="mask_overlay2"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
+                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
         </div>
+        <img th:src="${posterUrl}"
+             style="position: absolute; top: 167px; left: 150px; width: 103px; height: 138px; z-index: 10;" />
     </div>
 
     <script>
