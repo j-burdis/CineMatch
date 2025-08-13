@@ -1,29 +1,15 @@
 /*COLOUR-PALETTE.HTML STYLING*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap');
 
-/*GENERAL STYLES AND LAYOUT*/
-html, body {
+/*GENERAL STYLES*/
+body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #FBF4EE;
   font-family: 'Roboto', sans-serif;
   overflow-y: auto;
-  display: flex;
-  justify-content: center;
 }
-
-body {
-  min-height: 930px
-}
-
-main {
-  display: grid;
-  width: 100vw;
-  max-width: 2000px;
-  padding: 50px;
-}
-
 
 a {
   text-decoration: none;
@@ -38,32 +24,46 @@ a:active{
   color: #FBF4EE;
 }
 
+/* buttons */
+button{
+   all: unset;
+   background-color: #E18E26;
+   color: #FBF4EE;
+   padding: 5px 20px;
+   cursor: pointer;
+   font-weight: 500;
+   border-radius: 10px;
+   text-align: center;
+}
 
-/*PAGE ELEMENTS*/
-#cinematch-title {
+
+/* GENERAL LAYOUT*/
+#main-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 50px;
+  width: 100vw;
+  max-width: 2000px;
+  padding: 60px 100px;
+}
+
+
+/*HEADER SECTION*/
+#logo {
     grid-row: 1;
-    color: #E18E26;
-    font-size: 45px;
-    font-weight: 700;
-    margin-bottom: 0px;
-    margin-top: 20px;
 }
 
-#back-button{
+#logo img{
+    max-width: 350px;
+}
+
+
+/*MOVIE INFORMATION SECTION*/
+#movie-information-container{
     grid-row: 2;
-    font-size: 15px;
-    font-weight: 500;
-    color: #E18E26;
-    margin-top: 5px;
-    margin-left: 2px;
-}
-
-#back-button:hover{
-  color: #1E1D17;
-}
-
-#back-button:active{
-  color: #FBF4EE;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
 }
 
 
@@ -76,50 +76,111 @@ a:active{
     margin-bottom: 5px;
 }
 
-#movie-poster-section{
-    grid-row: 4;
-
+#movie-poster{
+    grid-column: 1;
 }
 
-#movie-poster-section img{
+#movie-poster img{
     width: auto;
-    height: 400px;
-    object-fit: cover;
-    object-position: 50% 35%;
+    height: 420px;
 }
 
-#colour-palette{
-    grid-row: 5;
+#movie-details{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    margin-top: 5px;
+    margin-left: 50px;
+    height: 100%;
 }
 
-#secondary-colour-palette{
-    grid-row: 5;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 5px;
-}
-
-#prompt {
-    grid-row: 6;
-    font-size: 18px;
+#movie-title{
+    margin: 0px;
+    font-size: 25px;
     font-weight: 600;
-    color: #1E1D17;
-    margin-bottom: 0px;
 }
 
-#matched-colour-palette{
-    grid-row: 7;
+#colour-palette-heading{
+    margin: 0px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
 
 }
 
 
-/*colour palettes styling*/
+.colour-palette{
+    grid-row: 5;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+}
+
+#palette-1{
+    margin-bottom: 10px;
+}
+
+#palette-2{
+    margin-bottom: 5px;
+}
+
+#colour-palette-group {
+    margin-top: auto;
+}
+
+
+/* VISUALISER SECTION */
+#visualiser-container{
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.25fr 3fr;
+    background-color: #F8E9D8;
+    /* stretching background colour across full viewport */
+    width: 100vw;
+    margin-left: calc(-1 * 100px);
+    margin-right: calc(-1 * 100px);
+    padding: 60px 100px;
+}
+
+#visualiser-heading{
+    grid-row: 1;
+    grid-column: 1 / span 2;
+    justify-self: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#dulux-colours-container{
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.matched-colour-palette{
+}
+
+#room-container{
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#room-selector{
+}
+
+#e-commerce-container{
+    grid-row: 4;
+}
+
+/* COLOUR PALETTE STYLING */
 .colour-box {
      width: 50px;
-     height: 70px;
+     height: 150px;
      margin: 0px;
 }
 
@@ -146,14 +207,19 @@ a:active{
 
 /*MEDIA QUERIES and WEBKIT/ FIREFOX*/
 /* center content vertically on taller screens */
-@media (min-height: 900px) {
-  html, body {
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
+@media (max-width: 930px) {
+  .colour-box {
+    width: 50px;
+    height: 75px;
   }
 }
 
+@media (max-width: 633px) {
+  .colour-box {
+    width: 50px;
+    height: 50px;
+  }
+}
 /* Chrome, Safari, Edge Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
@@ -175,6 +241,9 @@ a:active{
   scrollbar-color: #E18E26 #FBF4EE;
 }
 
+
+
+/*VISUALISER SECTION*/
 #visualiser {
     grid-row: 8;
 }
