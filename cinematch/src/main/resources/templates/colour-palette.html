@@ -130,51 +130,51 @@
         <article id="room-container"> <!-- row 2 col 2 --> <!--flexbox-->
             <button id="room-selector">choose your room</button>
             <div class="bedroom-preview1">
-                <img src="/images/bedroom/Base_image.jpg" class="bedroom-base" alt="Bedroom">
+                <img th:src="@{/Images/bedroom/Base_image.jpg}" class="bedroom-base" alt="Bedroom">
                 <div id="bedroom-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');
-                        mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + ');'">
                 </div>
                 <div id="wall-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Wall-1.png} + ');
-                        mask-image:url(' + @{/images/bedroom/Mask_Wall-1.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');'">
                 </div>
                 <div id="wall2-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Wall-2.png} + ');
-                        mask-image:url(' + @{/images/bedroom/Mask_Wall-2.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');'">
                 </div>
                 <div id="nightstand-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Nightstand.png} + ');
-                        mask-image:url(' + @{/images/bedroom/Mask_Nightstand.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');'">
                 </div>
             </div>
 
             <div class="bedroom-preview1">
-                <img th:src="@{/images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
+                <img th:src="@{/Images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
 
                 <div id="bedroom2-wall1-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
                 </div>
                 <div id="bedroom2-wall2-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
                 </div>
                 <div id="bedroom2-ceiling-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
                 </div>
                 <div id="bedroom2-coving-overlay"
                      class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');
-                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_coving.png} + ');
+                        mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
                 </div>
                 <img th:src="${posterUrl}"
                      style="position: absolute; top: 324px; left: 292px; width: 207px; height: 278px; z-index: 10;" />
