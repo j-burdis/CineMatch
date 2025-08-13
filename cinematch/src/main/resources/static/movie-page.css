@@ -110,10 +110,21 @@ a:active{
     margin-bottom: 0px;
 }
 
+#secondary-prompt {
+    grid-row: 6; /* or whatever fits your layout */
+}
+
 #matched-colour-palette{
     grid-row: 7;
 
 }
+
+
+
+#secondary-matched-colour-palette {
+    grid-row: 7;
+}
+
 
 
 /*colour palettes styling*/
@@ -176,7 +187,7 @@ a:active{
 }
 
 #visualiser {
-    grid-row: 8;
+    grid-row: 4;
 }
 
 .bedroom-preview1 {
