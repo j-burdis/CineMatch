@@ -75,7 +75,7 @@
             </article>
         </section>
     <div class="bedroom-preview1">
-        <img src="/images/bedroom/Base_image.jpg" class="bedroom-base" alt="Bedroom">
+        <img th:src="@{/images/bedroom/Base_image.jpg}" class="bedroom-base" alt="Bedroom">
         <div id="bedroom-overlay"
              class = "mask_overlay"
              th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');
