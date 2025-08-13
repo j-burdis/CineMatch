@@ -13,141 +13,180 @@
 </head>
 <body>
 
-<main id="main-container">
+<main id="main-container"> <!--grid 3 rows-->
 
+    <!-- logo as back button !!!
     <div>
         <a id="back-button" th:href="@{'/movies#movie-' + ${movieDetail.id}}">Back to search results</a>
     </div>
+    -->
 
-    <p id="cinematch-title">CineMatch</p>
-    <h2 id="movie-title" th:text="${title}"></h2>
+    <div id="logo"> <!-- row 1 -->
+        <img th:src="@{/cinematch-logo.png}" alt="CineMatch logo">
 
-    <section id="movie-poster-section">
-        <img th:src="${posterUrl}" alt="Movie Poster" />
-    </section>
-
-    <section id="colour-palette">
-        <article class="colour-box"
-                 th:each="colour : ${coloursArray}"
-                 th:style="'background-color:' + ${colour}">
-        </article>
-    </section>
-
-    <section id="matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
-        <p id="prompt">Dulux Paints we suggest:</p>
-        <article th:each="match : ${closestMatches}"
-                 th:if="${seenColours.add(match.hexCode)}"
-                 style="display: inline-block;">
-
-            <div class="matched-colour-box"
-                 th:style="'background-color:' + ${match.hexCode}">
-                <p class="dulux-paint-name" th:text="${match.colourName}"></p>
-            </div>
-
-            <button type="button"
-                    th:attr="data-colour=${match.hexCode}"
-                    onclick="tryPaintA(this)">
-                Theme A
-            </button>
-
-            <button type="button"
-                    th:attr="data-colour=${match.hexCode}"
-                    onclick="tryPaintB(this)">
-                Theme B
-            </button>
-
-            <a class="dulux-buy-link"
-               th:href="${match.purchaseUrl}"
-               th:if="${match.purchaseUrl != null}"
-               target="_blank">
-                buy
-            </a>
-        </article>
-    </section>
-
-
-    <section id="secondary-colour-palette" th:if="${secondaryColours != null}">
-        <article class="colour-box" th:each="colour : ${secondaryColours}" th:style="'background-color:' + ${colour}">
-        </article>
-    </section>
-
-    <section id="secondary-matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
-        <p id="prompt">Dulux Paints for Secondary Palette:</p>
-        <article th:each="match : ${closestSecondaryMatches}"
-                 th:if="${seenColours.add(match.hexCode)}"
-                 style="display: inline-block;">
-            <div class="matched-colour-box"
-                 th:style="'background-color:' + ${match.hexCode}">
-                <p class="dulux-paint-name" th:text="${match.colourName}"></p>
-            </div>
-
-            <button type="button"
-                    th:attr="data-colour=${match.hexCode}"
-                    onclick="tryPaintA(this)">
-                Theme A
-            </button>
-
-            <button type="button"
-                    th:attr="data-colour=${match.hexCode}"
-                    onclick="tryPaintB(this)">
-                Theme B
-            </button>
-
-            <a class="dulux-buy-link"
-               th:href="${match.purchaseUrl}"
-               th:if="${match.purchaseUrl != null}"
-               target="_blank">
-                buy
-            </a>
-        </article>
-    </section>
-
-    <div class="bedroom-preview1">
-        <img th:src="@{/Images/bedroom/Base_image.jpg}" class="bedroom-base" alt="Bedroom">
-        <div id="bedroom-overlay"
-             class = "mask_overlay"
-             th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + ');'">
-        </div>
-        <div id="wall-overlay"
-             class = "mask_overlay"
-             th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');'">
-        </div>
-        <div id="wall2-overlay"
-             class = "mask_overlay"
-             th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');'">
-        </div>
-        <div id="nightstand-overlay"
-             class = "mask_overlay"
-             th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');'">
-        </div>
     </div>
 
-    <div class="bedroom-preview2">
-        <img th:src="@{/images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
+    <section id="movie-information-container"> <!-- row 2 --> <!--grid 2 columns, 1 row-->
+        <article id="movie-poster">
+            <img th:src="${posterUrl}" alt="Movie Poster" />
+        </article>  <!-- col 1 -->
 
-        <div id="bedroom2-wall1-overlay" class="mask_overlay2"
-             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');
-                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
-        </div>
-        <div id="bedroom2-wall2-overlay" class="mask_overlay2"
-             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');
-                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
-        </div>
-        <div id="bedroom2-ceiling-overlay" class="mask_overlay2"
-             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
-                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
-        </div>
-        <div id="bedroom2-coving-overlay" class="mask_overlay2"
-             th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');
-                    mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
-        </div>
-        <img th:src="${posterUrl}"
-             style="position: absolute; top: 167px; left: 150px; width: 103px; height: 138px; z-index: 10;" />
-    </div>
+        <article id="movie-details"> <!--col 2--> <!-- flexbox align col-->
+            <p id="movie-title" th:text="${title}"></p>
+
+
+            <div id="colour-palette-group">
+                <p id="colour-palette-heading">colour palettes</p>
+
+                <div class="colour-palette" id="palette-1">
+                    <article class="colour-box"
+                             th:each="colour : ${coloursArray}"
+                             th:style="'background-color:' + ${colour}">
+                    </article>
+                </div>
+
+                <div class="colour-palette" id="palette-2" th:if="${secondaryColours != null}">
+                    <article class="colour-box"
+                             th:each="colour : ${secondaryColours}"
+                             th:style="'background-color:' + ${colour}">
+                    </article>
+                </div>
+            </div>
+
+        </article>
+    </section>
+
+
+    <section id="visualiser-container"> <!-- row 3--> <!-- grid box 2 columns, 2 rows-->
+        <p id="visualiser-heading">Turn your room into a masterpiece — see it in Dulux</p> <!-- span col 1-2, row 1-->
+
+        <article id="dulux-colours-container"> <!-- row 2 col 1--> <!-- flexbox -->
+            <div class="matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
+                <div th:each="match : ${closestMatches}"
+                         th:if="${seenColours.add(match.hexCode)}"
+                         style="display: inline-block;">
+
+                    <div class="matched-colour-box"
+                         th:style="'background-color:' + ${match.hexCode}">
+                        <p class="dulux-paint-name" th:text="${match.colourName}"></p>
+                    </div>
+
+                    <button type="button"
+                            th:attr="data-colour=${match.hexCode}"
+                            onclick="tryPaintA(this)">
+                        Theme A
+                    </button>
+
+                    <button type="button"
+                            th:attr="data-colour=${match.hexCode}"
+                            onclick="tryPaintB(this)">
+                        Theme B
+                    </button>
+
+                    <a class="dulux-buy-link"
+                       th:href="${match.purchaseUrl}"
+                       th:if="${match.purchaseUrl != null}"
+                       target="_blank">
+                        buy
+                    </a>
+                </div>
+            </div>
+
+            <!---second matched palette -->
+            <section id="secondary-matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}">
+                <p id="prompt">Dulux Paints for Secondary Palette:</p>
+                <article th:each="match : ${closestSecondaryMatches}"
+                         th:if="${seenColours.add(match.hexCode)}"
+                         style="display: inline-block;">
+                    <div class="matched-colour-box"
+                         th:style="'background-color:' + ${match.hexCode}">
+                        <p class="dulux-paint-name" th:text="${match.colourName}"></p>
+                    </div>
+
+                    <button type="button"
+                            th:attr="data-colour=${match.hexCode}"
+                            onclick="tryPaintA(this)">
+                        Theme A
+                    </button>
+
+                    <button type="button"
+                            th:attr="data-colour=${match.hexCode}"
+                            onclick="tryPaintB(this)">
+                        Theme B
+                    </button>
+
+                    <a class="dulux-buy-link"
+                       th:href="${match.purchaseUrl}"
+                       th:if="${match.purchaseUrl != null}"
+                       target="_blank">
+                        buy
+                    </a>
+                  
+                </article>
+            </section>
+        </article>
+
+
+        <article id="room-container"> <!-- row 2 col 2 --> <!--flexbox-->
+            <button id="room-selector">choose your room</button>
+            <div class="bedroom-preview1">
+                <img src="/images/bedroom/Base_image.jpg" class="bedroom-base" alt="Bedroom">
+                <div id="bedroom-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');
+                        mask-image:url(' + @{/images/bedroom/Mask_Ceiling.png} + ');'">
+                </div>
+                <div id="wall-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Wall-1.png} + ');
+                        mask-image:url(' + @{/images/bedroom/Mask_Wall-1.png} + ');'">
+                </div>
+                <div id="wall2-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Wall-2.png} + ');
+                        mask-image:url(' + @{/images/bedroom/Mask_Wall-2.png} + ');'">
+                </div>
+                <div id="nightstand-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/Mask_Nightstand.png} + ');
+                        mask-image:url(' + @{/images/bedroom/Mask_Nightstand.png} + ');'">
+                </div>
+            </div>
+
+            <div class="bedroom-preview1">
+                <img th:src="@{/images/bedroom/bedroom2/Poster_room_Original.jpg}" class="bedroom-base" />
+
+                <div id="bedroom2-wall1-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');
+                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-1.png} + ');'">
+                </div>
+                <div id="bedroom2-wall2-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');
+                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_Wall-2.png} + ');'">
+                </div>
+                <div id="bedroom2-ceiling-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');
+                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_ceiling.png} + ');'">
+                </div>
+                <div id="bedroom2-coving-overlay"
+                     class = "mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');
+                        mask-image:url(' + @{/images/bedroom/bedroom2/Poster_room_coving.png} + ');'">
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section id="e-commerce-container"> <!-- row 3 --> <!-- probably a flex box -->
+        <p id="e-commerce-heading">Bring your favourite scenes home</p>
+        <article id="e-commerce-embed"> ecommerce goes here :) </article>
+
+    </section>
+
+
 
     <script>
         function tryPaintA(button) {

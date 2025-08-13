@@ -10,7 +10,7 @@ body {
     min-width: 690px;
     margin-left: auto;
     margin-right: auto;
-    overflow-x: hidden;
+
 }
 
 /* buttons */
@@ -53,41 +53,22 @@ button:active {
     padding: 35px 0;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 0.5fr);
+    grid-template-rows: repeat(3, 0.5fr);
 }
 
 
 /* search menu container text elements */
-#cinematch-title {
+#logo{
     grid-row: 1;
-    grid-column: 1;
-    color: #E18E26;
-    font-size: 50px;
-    font-weight: 700;
-    margin: 10px 0 0 0;
 }
 
-#cinematch-subheading {
-    grid-row: 2;
-    grid-column: 1;
-    margin: 20px 0 0 0;
-    font-size: 30px;
-    font-weight: 600;
-    color: #1E1D17;
-}
-
-#prompt {
-    grid-row: 3;
-    grid-column: 1;
-    margin-top: 0px;
-    font-size: 20px;
-    font-weight: 500;
-    color: #1E1D17;
+#logo img{
+    max-width: 350px;
 }
 
 /* search bar in search menu section */
 .search-form{
-    grid-row: 4;
+    grid-row: 2;
     grid-column: 1 / 2;
 }
 
@@ -127,10 +108,14 @@ button:active {
 
 /* filter buttons in search menu */
 #filter-buttons{
-    grid-row: 5;
+    grid-row: 3;
     margin-top: 20px;
 }
 
+#filter-button{
+    margin-left: 30px;
+
+}
 
 /*MOVIE SECTION*/
 #movie-selection-container {
@@ -177,3 +162,25 @@ button:active {
 }
 
 
+
+/* MEDIA QUERIES AND WEBKIT*/
+/* Chrome, Safari, Edge Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FBF4EE;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E18E26;
+  border-radius: 6px;
+  border: 3px solid #FBF4EE;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E18E26 #FBF4EE;
+}
