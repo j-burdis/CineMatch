@@ -39,3 +39,5 @@ out/
 #src/main/resources/application.properties
 
 .env
+
+.DS_Store
