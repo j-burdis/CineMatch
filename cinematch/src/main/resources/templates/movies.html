@@ -35,11 +35,9 @@
         <article id="movie-selection-container">
             <ul id="movie-list">
                 <li class="movie-poster" th:each="movie : ${movies}" th:id="'movie-' + ${movie.id}">
-                    <!--<h2 th:text="${movie.title}"></h2>-->
                     <a th:href="@{/movies/{id}(id=${movie.id})}">
                         <img  th:src="${movie.posterUrl}" alt="Poster"/>
                     </a>
-                    <!--<p th:if="${movie.releaseDate}" th:text="'Release Date: ' + ${movie.releaseDate}"></p>-->
                 </li>
 
             </ul>

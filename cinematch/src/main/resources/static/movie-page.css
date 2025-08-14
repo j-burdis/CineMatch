@@ -1,7 +1,7 @@
 /*COLOUR-PALETTE.HTML STYLING*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap');
 
-/*GENERAL STYLES*/
+/*GLOBAL STYLES*/
 body {
   height: 100%;
   margin: 0;
@@ -17,6 +17,31 @@ a {
   text-decoration: none;
 }
 
+.link-as-button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E18E26;
+    color: #FBF4EE;
+    padding: 4px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12px;
+    width: fit-content;
+    line-height: 1.5;
+}
+
+.link-as-button:hover{
+    background-color: #BF9055;
+}
+
+.link-as-button:active{
+    background-color: #575548;
+}
+
 /* buttons */
 button{
    all: unset;
@@ -30,8 +55,16 @@ button{
    max-width: 1592px;
 }
 
+button:hover{
+    background-color: #BF9055;
+}
 
-/* GENERAL LAYOUT*/
+button:active{
+    background-color: #575548;
+}
+
+
+/* MAIN CONTAINER LAYOUT*/
 #main-container{
   display: grid;
   grid-template-rows: auto;
@@ -62,8 +95,14 @@ button{
     grid-template-columns: 0.5fr 2fr;
 }
 
-
 /* movie information and poster */
+#title-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
 #movie-title{
     grid-row: 3;
     font-size: 25px;
@@ -71,6 +110,13 @@ button{
     color: #1E1D17;
     margin: 0px;
 }
+
+#back-button {
+     margin: 0;
+     margin-bottom: 10px;
+     border-radius: 10px;
+}
+
 
 #movie-poster{
     grid-column: 1;
@@ -186,13 +232,7 @@ button{
     justify-content: space-between;
 }
 
-.dulux-paint-name{
-    font-size: 12px;
-    font-weight: 400;
-    color: #1E1D17;
-    padding: 5px;
-}
-
+/* selecting style buttons */
 .style-button{
     display: none;
     width: 48%;
@@ -210,30 +250,9 @@ button{
     background-color: #575548;
 }
 
-
 .dulux-buy-link {
     display: block;
-    background-color: #E18E26;
-    color: #FBF4EE;
-    padding: 4px 15px;
-    margin: 0 auto;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: 400;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 12px;
-    width: fit-content;
-}
-
-.dulux-buy-link:hover{
-    background-color: #BF9055;
-}
-
-.dulux-buy-link:active{
-    background-color: #575548;
+    margin: 5px auto 10px;
 }
 
 
@@ -283,6 +302,70 @@ button{
 }
 
 
+
+/* RECOMMENDATIONS SECTION */
+#recommendations-container {
+    grid-row: 5;
+    margin-top: 50px;
+    display: grid;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+#recommendations-heading {
+     grid-row: 1;
+     grid-column: 1
+     font-size: 25px;
+     font-weight: 600;
+     color: #1E1D17;
+     text-align: center;
+     margin-bottom: 30px;
+}
+
+#recommended-movies-flexbox{
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.recommended-movie {
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #F8E9D8;
+}
+
+.recommended-movie:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(30, 29, 23, 0.15);
+}
+
+.recommended-movie a {
+    display: block;
+    margin: 0;
+}
+
+.recommended-movie a:hover {
+    color: inherit;
+}
+
+.recommended-poster {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.dominant-colour-indicator {
+    width: 100%;
+    height: 10px;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+
 /* E-COMMERCE SECTION */
 #e-commerce-container{
     grid-row: 4;
@@ -298,19 +381,35 @@ button{
 }
 
 
-
 /*MEDIA QUERIES and WEBKIT/ FIREFOX*/
-/* center content vertically on taller screens */
+
 @media (max-width: 1359px) {
   .colour-box {
-    height: 75px;
+       height: 75px;
   }
 }
 
 @media (max-width: 940px) {
   .colour-box {
-    height: 50px;
+       height: 50px;
   }
+
+  #recommended-movies-grid {
+       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+       gap: 15px;
+   }
+
+   .recommended-poster {
+       height: 200px;
+   }
+
+   .recommended-title {
+       font-size: 13px;
+   }
+
+   #recommendations-heading {
+       font-size: 20px;
+   }
 }
 
 @media (max-width: 1331px) {
@@ -384,6 +483,12 @@ button{
   .colour-palette{
     justify-content: center;
   }
+
+  #title-container{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 
@@ -391,7 +496,31 @@ button{
   #room-selector {
     width: 80%;
   }
+
+  #recommended-movies-grid {
+       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+       gap: 12px;
+   }
+
+   .recommended-poster {
+       height: 180px;
+   }
+
+   .recommended-title {
+       font-size: 12px;
+   }
+
+   #recommendations-heading {
+       font-size: 18px;
+       margin-bottom: 20px;
+   }
+
+   .dominant-colour-indicator {
+       height: 4px;
+   }
 }
+
+
 
 /* Chrome, Safari, Edge Scrollbar */
 ::-webkit-scrollbar {
@@ -413,169 +542,3 @@ button{
   scrollbar-width: thin;
   scrollbar-color: #E18E26 #FBF4EE;
 }
-
-
-
-/*VISUALISER SECTION*/
-#visualiser {
-    grid-row: 4;
-}
-
-.bedroom-preview1 {
-    position: relative;
-    display: inline-block;
-    max-width: 800px;
-}
-
-.bedroom-preview1 .bedroom-base {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.bedroom-preview1 .mask_overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    mix-blend-mode: multiply;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-size: contain;
-}
-
-.bedroom-preview2 {
-    position: relative;
-    display: inline-block;
-    max-height: 525px;  /* optional, based on your overlay aspect ratio */
-}
-.bedroom-preview2 .bedroom-base {
-    width: 100%;    /* fill container horizontally */
-    height: 100%;   /* fill container vertically */
-}
-.bedroom-preview2 .mask_overlay2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 407px;
-    height: 525px;
-    mix-blend-mode: multiply;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: cover;
-    mask-repeat: no-repeat;
-    mask-size: cover;
- }
-
-/* RECOMMENDATIONS SECTION */
-
-#recommendations-container {
- grid-row: 5;
- margin-top: 50px;
-}
-
-#recommendations-heading {
- font-size: 22px;
- font-weight: 600;
- color: #1E1D17;
- text-align: center;
- margin-bottom: 30px;
-}
-
-#recommended-movies-grid {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
- gap: 20px;
- max-width: 1200px;
- margin: 0 auto;
-}
-
-.recommended-movie {
- position: relative;
- overflow: hidden;
- transition: transform 0.3s ease, box-shadow 0.3s ease;
- background-color: #F8E9D8;
-}
-
-.recommended-movie:hover {
- transform: translateY(-8px);
- box-shadow: 0 12px 30px rgba(30, 29, 23, 0.15);
-}
-
-.recommended-movie a {
- display: block;
- margin: 0;
-}
-
-.recommended-movie a:hover {
- color: inherit;
-}
-
-.recommended-poster {
- width: 100%;
- height: 240px;
- object-fit: cover;
- display: block;
-}
-
-.recommended-title {
- font-size: 14px;
- font-weight: 500;
- color: #FBF4EE;
- margin: 0 0 8px 0;
- line-height: 1.3;
- font-family: 'Roboto', sans-serif;
-}
-
-.dominant-colour-indicator {
- width: 100%;
- height: 6px;
- border-radius: 3px;
- margin-top: 5px;
-}
-
-/* Responsive adjustments to match your existing breakpoints */
-@media (max-width: 930px) {
- #recommended-movies-grid {
-     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-     gap: 15px;
- }
-
- .recommended-poster {
-     height: 200px;
- }
-
- .recommended-title {
-     font-size: 13px;
- }
-
- #recommendations-heading {
-     font-size: 20px;
- }
-}
-
-@media (max-width: 633px) {
- #recommended-movies-grid {
-     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-     gap: 12px;
- }
-
- .recommended-poster {
-     height: 180px;
- }
-
- .recommended-title {
-     font-size: 12px;
- }
-
-
-
- #recommendations-heading {
-     font-size: 18px;
-     margin-bottom: 20px;
- }
-
- .dominant-colour-indicator {
-     height: 4px;
- }
