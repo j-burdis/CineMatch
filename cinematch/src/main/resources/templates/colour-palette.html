@@ -25,12 +25,15 @@
 
     <section id="movie-information-container"> <!-- row 2 --> <!--grid 2 columns, 1 row-->
         <article id="movie-poster">
-            <img th:src="${posterUrl}" alt="Movie Poster" />
+            <img th:src="${posterUrl}" alt="back to homepage"/>
         </article>  <!-- col 1 -->
 
-        <article id="movie-details"> <!--col 2--> <!-- flexbox align col-->
-            <p id="movie-title" th:text="${title}"></p>
+        <article id="movie-details"><!--col 2--> <!-- flexbox align col-->
 
+            <div id="title-container">
+                <p id="movie-title" th:text="${title}"></p>
+                <a id="back-button" class="link-as-button" th:href="@{/movies}">back to movies</a>
+            </div>
 
             <div id="colour-palette-group">
                 <p id="colour-palette-heading">colour palettes</p>
@@ -81,7 +84,7 @@
                         </button>
                     </div>
 
-                    <a class="dulux-buy-link"
+                    <a class="dulux-buy-link link-as-button"
                        th:href="${match.purchaseUrl}"
                        th:if="${match.purchaseUrl != null}"
                        target="_blank">
@@ -113,7 +116,7 @@
                     </div>
 
 
-                    <a class="dulux-buy-link"
+                    <a class="dulux-buy-link link-as-button"
                        th:href="${match.purchaseUrl}"
                        th:if="${match.purchaseUrl != null}"
                        target="_blank">
@@ -193,10 +196,11 @@
 
     </section>
 
-    <section id="recommendations-container"> <!-- row 5 -->
+
+    <section id="recommendations-container">
         <p id="recommendations-heading">More movies with similar palettes</p>
 
-        <article id="recommended-movies-grid">
+        <div id="recommended-movies-flexbox">
             <div class="recommended-movie"
                  th:each="movie : ${recommendedMovies}"
                  th:if="${movie.posterUrl != null}">
@@ -207,7 +211,6 @@
                          class="recommended-poster" />
 
                     <div class="movie-info-overlay">
-<!--                        <p th:text="${movie.title}" class="recommended-title"></p>-->
                         <div class="dominant-colour-indicator"
                              th:style="'background-color:' + ${movie.dominantColour}"
                              th:if="${movie.dominantColour != null}">
@@ -215,8 +218,10 @@
                     </div>
                 </a>
             </div>
-        </article>
+        </div>
+
     </section>
+
 
     <script>
         //SCRIPT FOR VISUALISER MASKS
