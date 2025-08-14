@@ -1,7 +1,7 @@
 /*MOVIES.HTML STYLING*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;800&display=swap');
 
-/*GENERAL LAYOUT AND STYLES*/
+/*GLOBAL STYLES*/
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #FBF4EE;
@@ -26,22 +26,26 @@ button{
 }
 
 button:hover {
-   background-color: #FBF4EE;
-   color: #E18E26;
+   background-color: #BF9055;
 }
 
 button:active {
    background-color: #575548;
-   color: #FBF4EE;
 }
 
-/* main grid */
+/* a tags */
+a {
+  text-decoration: none;
+}
+
+
+/*MAIN GRID*/
 #grid-container {
     display: grid;
     margin-left: 150px;
     margin-right: 100px;
     grid-template-columns:  1fr ;
-    grid-template-rows: auto 1fr;;
+    grid-template-rows: auto 1fr;
     height: 100%;
 }
 
@@ -50,7 +54,9 @@ button:active {
 #search-menu-container {
     grid-row: 1;
     grid-column: 2;
-    padding: 35px 0;
+    padding: 0px;
+    padding-bottom: 30px;
+    padding-top: 60px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 0.5fr);
@@ -109,12 +115,11 @@ button:active {
 /* filter buttons in search menu */
 #filter-buttons{
     grid-row: 3;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #filter-button{
     margin-left: 30px;
-
 }
 
 /*MOVIE SECTION*/

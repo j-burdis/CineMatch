@@ -35,20 +35,26 @@ public class MovieService {
     }
 
     public List<Movie> getPopularMovies() {
-        // First, try to get movies from database
-        List<Movie> existingMovies = movieRepository.findAll();
-
-        // If we have movies in database, return them
-        if (!existingMovies.isEmpty()) {
-            return existingMovies;
-        }
-
-        // Otherwise, fetch from API and save to database
-        return fetchAndSaveMoviesFromApi();
+        return getMoviesByCategory("popular");
     }
 
-    public List<Movie> fetchAndSaveMoviesFromApi() {
-        String url = "https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey;
+    public List<Movie> getTopRatedMovies() {
+        return getMoviesByCategory("top_rated");
+    }
+
+    public List<Movie> getUpcomingMovies() {
+        return getMoviesByCategory("upcoming");
+    }
+
+    List<Movie> fetchAndSaveMoviesFromApi(String category) {
+        // 1. Remove all movies from this category before saving new ones
+        List<Movie> existingCategoryMovies = movieRepository.findByCategory(category);
+        if (!existingCategoryMovies.isEmpty()) {
+            movieRepository.deleteAll(existingCategoryMovies);
+        }
+
+        // 2. Fetch from TMDB API
+        String url = "https://api.themoviedb.org/3/movie/" + category + "?api_key=" + apiKey;
         RestTemplate restTemplate = new RestTemplate();
         MovieResponse response = restTemplate.getForObject(url, MovieResponse.class);
 
@@ -56,22 +62,30 @@ public class MovieService {
             return List.of();
         }
 
+        // 3. Map API movies to entities and save them
         return response.getResults().stream()
                 .map(ApiMovie::toEntity)
-                .map(this::saveMovieIfNotExists)
+                .peek(movie -> movie.setCategory(category))
+                .map(this::saveMovieIfNotExists) // only skips if no poster
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
+    public List<Movie> getMoviesByCategory(String category) {
+        List<Movie> existing = movieRepository.findByCategory(category);
+        if (!existing.isEmpty()) {
+            return existing;
+        }
+        return fetchAndSaveMoviesFromApi(category);
+    }
+
     private Movie saveMovieIfNotExists(Movie movie) {
         if (movie.getPosterUrl() == null || movie.getPosterUrl().isBlank()) {
-            return null; // skip save if poster url is blank
+            return null;
         }
 
-        // check if movie already exists by title and release date
         return movieRepository.findById(movie.getId())
                 .orElseGet(() -> {
-                    // movie doesn't exist, save it
                     String dominantColour = imageService.getDominantColour(movie.getPosterUrl());
                     movie.setDominantColour(dominantColour);
                     return movieRepository.save(movie);
@@ -79,8 +93,11 @@ public class MovieService {
     }
 
     // force refresh from API (for admin purposes)
-    public List<Movie> refreshMoviesFromApi() {
-        return fetchAndSaveMoviesFromApi();
+    public List<Movie> refreshMoviesFromApi(String category) {
+        // delete old category movies so the refresh is clean
+        List<Movie> existing = movieRepository.findByCategory(category);
+        movieRepository.deleteAll(existing);
+        return fetchAndSaveMoviesFromApi(category);
     }
 
     // get all movies from database
