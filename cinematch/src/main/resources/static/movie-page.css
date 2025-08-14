@@ -68,9 +68,9 @@ button:active{
 #main-container{
   display: grid;
   grid-template-rows: auto;
-  gap: 50px;
+  gap: 32px;
   margin: 0 auto;
-  padding: 60px 80px;
+  padding: 4px 80px 60px 80px;
   max-width: 1405px;
   min-width: 530px;
   box-sizing: border-box;
@@ -174,7 +174,6 @@ button:active{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.25fr 3fr;
-    padding: 100px 0;
     position: relative;
 
 }
@@ -207,8 +206,7 @@ button:active{
     justify-self: center;
     font-size: 25px;
     font-weight: 600;
-    margin: 0 0 40px;
-    margin-top: 50px;
+    margin-top: 32px;
 }
 
 /* colour matches styling */
@@ -338,8 +336,7 @@ button:active{
 #recommendations-container {
     grid-row: 5;
     display: grid;
-    gap: 20px;
-    margin: 50px 10px 0;
+    margin: 0px 10px 0;
 }
 
 #recommendations-heading {
@@ -349,7 +346,6 @@ button:active{
      font-weight: 600;
      color: #1E1D17;
      text-align: center;
-     margin-bottom: 30px;
 }
 
 #recommended-movies-flexbox{
@@ -585,9 +581,6 @@ button:active{
 }
 
 /* RedBubble Section */
-#redbubble-section {
-    margin-top: 2rem;
-}
 
 .redbubble-link-container {
     background: linear-gradient(135deg, #e74c3c, #c0392b);

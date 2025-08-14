@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Controller
-@RequestMapping("/movies")
 public class MovieController {
 
     @Autowired
@@ -22,39 +21,48 @@ public class MovieController {
     @Autowired
     private MovieDetailsService movieDetailsService;
 
+    // Redirect base URL to /movies
+    @GetMapping("/")
+    public String redirectToMovies() {
+        return "redirect:/movies";
+    }
 
-    @GetMapping
-    public String getPopularMovies(Model model) {
-        model.addAttribute("movies", movieService.getMoviesByCategory("popular"));
+    @GetMapping("/movies")
+    public String getAllMovies(Model model) {
+        List<Movie> allMovies = movieService.getAllMoviesFromDatabase();
+
+        // If database is empty, fetch some popular movies to start with
+        if (allMovies.isEmpty()) {
+            allMovies = movieService.getMoviesByCategory("popular");
+        }
+
+        model.addAttribute("movies", allMovies);
         return "movies";
     }
 
     // Search movies
-    @GetMapping("/search")
+    @GetMapping("/movies/search")
     public String searchMovies(@RequestParam("q") String query, Model model) {
         model.addAttribute("movies", movieService.searchMovies(query));
         return "movies";
     }
 
     // Get movies by category dynamically (popular, top_rated, upcoming)
-    @GetMapping("/{category:popular|top_rated|upcoming}")
+    @GetMapping("/movies/{category:popular|top_rated|upcoming}")
     public String getMoviesByCategory(@PathVariable String category, Model model) {
         model.addAttribute("movies", movieService.getMoviesByCategory(category));
         return "movies";
     }
 
-    @GetMapping("/{id:\\d+}")
+    @GetMapping("/movies/{id:\\d+}")
     public ModelAndView getMovieDetails(@PathVariable Long id) {
         return movieDetailsService.buildMovieDetail(id);
     }
+}
 
-
-
-
-    // Admin endpoint to refresh a category from API
-//    @PostMapping("/refresh/{category}")
+// Admin endpoint to refresh a category from API
+//    @PostMapping("/movies/refresh/{category}")
 //    public String refreshCategory(@PathVariable String category, Model model) {
 //        model.addAttribute("movies", movieService.refreshMoviesFromApi(category));
 //        return "fragments/movie-list :: movieList";
 //    }
-}
