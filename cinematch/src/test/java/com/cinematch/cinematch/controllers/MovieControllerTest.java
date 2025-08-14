@@ -1,7 +1,6 @@
 package com.cinematch.cinematch.controllers;
 
 import com.cinematch.cinematch.controller.MovieController;
-import com.cinematch.cinematch.exception.MovieNotFoundException;
 import com.cinematch.cinematch.model.Movie;
 import com.cinematch.cinematch.service.MovieDetailsService;
 import com.cinematch.cinematch.service.MovieService;
