@@ -40,6 +40,7 @@ public class MovieServiceTests {
         List<Movie> result = movieService.getPopularMovies();
         // Assert: should return movies from DB - no API call
         assertEquals(mockMovies, result);
+      
         // ensure method not called
         verify(spyService, never()).fetchAndSaveMoviesFromApi("popular");
     }
@@ -76,6 +77,4 @@ public class MovieServiceTests {
         //checks movie returned by service is same object in Movie movie = new Movie()
         assertEquals(movie, result);
     }
-
-
 }

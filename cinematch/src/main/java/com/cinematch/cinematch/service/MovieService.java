@@ -1,6 +1,5 @@
 package com.cinematch.cinematch.service;
 
-import com.cinematch.cinematch.exception.MovieNotFoundException;
 import com.cinematch.cinematch.model.ApiMovie;
 import com.cinematch.cinematch.model.Movie;
 import com.cinematch.cinematch.model.MovieResponse;
@@ -107,8 +106,8 @@ public class MovieService {
     }
 
     public Movie findById(Long movieId) {
-//        return movieRepository.findById(movieId).orElse(null);
-        return movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException("Movie not found"));
+        return movieRepository.findById(movieId).orElse(null);
+//        return movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException("Movie not found"));
     }
 
     public List<Movie> searchMovies(String query) {
