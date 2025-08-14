@@ -583,3 +583,75 @@ button:active{
   scrollbar-width: thin;
   scrollbar-color: #E18E26 #FBF4EE;
 }
+
+/* RedBubble Section */
+#redbubble-section {
+    margin-top: 2rem;
+}
+
+.redbubble-link-container {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.redbubble-link-container h3 {
+    margin: 0 0 0.5rem 0;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.redbubble-link-container p {
+    margin: 0 0 1rem 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+.redbubble-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.redbubble-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    color: white;
+    text-decoration: none;
+}
+
+.redbubble-logo {
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.link-text {
+    font-size: 0.9rem;
+}
+
+.external-link-icon {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .redbubble-link {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}

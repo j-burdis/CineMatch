@@ -187,7 +187,9 @@
 
     <section id="e-commerce-container"> <!-- row 3 --> <!-- probably a flex box -->
         <p id="e-commerce-heading">Bring your favourite scenes home</p>
-        <article id="e-commerce-embed"> ecommerce goes here :) </article>
+        <section id="redbubble-section" style="display: none;">
+            <div id="redbubble-container"></div>
+        </section>
     </section>
 
     <section id="recommendations-container" th:if="${recommendedMovies != null}"> <!-- row 5 -->
@@ -332,6 +334,54 @@
                 room2.style.display = 'none';
             }
         });
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const movieTitle = document.getElementById('movie-title').textContent;
+        const redBubbleSection = document.getElementById('redbubble-section');
+        const redBubbleContainer = document.getElementById('redbubble-container');
+
+        // Fetch RedBubble search info
+        fetch(`/api/redbubble/search?query=${encodeURIComponent(movieTitle)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                redBubbleSection.style.display = 'block';
+
+                redBubbleContainer.innerHTML = `
+                    <div class="redbubble-link-container">
+                        <h3>Shop Related Items</h3>
+                        <p>Looking for ${movieTitle} merchandise?</p>
+                        <a href="${data.searchUrl}" target="_blank" class="redbubble-link">
+                            <span class="redbubble-logo">RedBubble</span>
+                            <span class="link-text">${data.searchText}</span>
+                            <span class="external-link-icon">↗</span>
+                        </a>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                // Fallback - create the link without API call
+                const fallbackUrl = `https://www.redbubble.com/shop?query=${encodeURIComponent(movieTitle)}`;
+                redBubbleSection.style.display = 'block';
+                redBubbleContainer.innerHTML = `
+                    <div class="redbubble-link-container">
+                        <h3>Shop Related Items</h3>
+                        <a href="${fallbackUrl}" target="_blank" class="redbubble-link">
+                            <span class="redbubble-logo">RedBubble</span>
+                            <span class="link-text">Find ${movieTitle} merchandise</span>
+                            <span class="external-link-icon">↗</span>
+                        </a>
+                    </div>
+                `;
+                console.error('Error fetching RedBubble info:', error);
+            });
+    });
     </script>
 
 </main>
