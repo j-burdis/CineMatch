@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" th:href="@{/cinematch-favicon.ico}">
 </head>
 <body>
+
 <main id="main-container">
     <div id="logo"> <!-- row 1 -->
         <a th:href="@{/movies}">
@@ -171,12 +172,15 @@
                 <img id="poster-mask" th:src="${posterUrl}"
                      style="position: absolute; top: 30.25%; left: 35%; width: 29%; height: 25.5%; z-index: 10; object-fit: cover;" />
             </div>
-            <button id="room-selector">change room</button>
-            <button class="reset-button"
-                    type="button"
-                    onclick="resetpaint()">
-                Reset
-            </button>
+
+            <div id="button-menu">
+                <button id="room-selector">change room</button>
+                <button id="reset-button"
+                        type="button"
+                        onclick="resetpaint()">
+                    Reset
+                </button>
+            </div>
 
         </article>
     </section>
