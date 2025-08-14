@@ -19,11 +19,16 @@
 
     <section id="movie-information-container"> <!-- row 2 --> <!--grid 2 columns, 1 row-->
         <article id="movie-poster">
-            <img th:src="${posterUrl}" alt="Movie Poster" />
+            <img th:src="${posterUrl}" alt="back to homepage"/>
         </article>  <!-- col 1 -->
 
-        <article id="movie-details"> <!--col 2--> <!-- flexbox align col-->
-            <p id="movie-title" th:text="${title}"></p>
+        <article id="movie-details"><!--col 2--> <!-- flexbox align col-->
+
+
+            <div id="title-container">
+                <p id="movie-title" th:text="${title}"></p>
+                <a id="back-button" class="link-as-button" th:href="@{/movies}">back to movies</a>
+            </div>
 
             <div id="colour-palette-group">
                 <p id="colour-palette-heading">colour palettes</p>
@@ -72,7 +77,7 @@
                         </button>
                     </div>
 
-                    <a class="dulux-buy-link"
+                    <a class="dulux-buy-link link-as-button"
                        th:href="${match.purchaseUrl}"
                        th:if="${match.purchaseUrl != null}"
                        target="_blank">
@@ -103,7 +108,7 @@
                         </button>
                     </div>
 
-                    <a class="dulux-buy-link"
+                    <a class="dulux-buy-link link-as-button"
                        th:href="${match.purchaseUrl}"
                        th:if="${match.purchaseUrl != null}"
                        target="_blank">
@@ -164,15 +169,14 @@
                         mask-image:url(' + @{/Images/bedroom/bedroom2/Poster_Room_Coving.png} + ');'">
                 </div>
                 <img id="poster-mask" th:src="${posterUrl}"
-                     style="position: absolute;
-                        top: 31%;
-                        left: 35%;
-                        width: 30%;
-                        height: 29%;
-                        z-index: 10;
-                        object-fit: cover;" />
+                     style="position: absolute; top: 30.25%; left: 35%; width: 29%; height: 25.5%; z-index: 10; object-fit: cover;" />
             </div>
             <button id="room-selector">change room</button>
+            <button class="reset-button"
+                    type="button"
+                    onclick="resetpaint()">
+                Reset
+            </button>
 
         </article>
     </section>
@@ -183,9 +187,10 @@
     </section>
 
     <section id="recommendations-container" th:if="${recommendedMovies != null}"> <!-- row 5 -->
+
         <p id="recommendations-heading">More movies with similar palettes</p>
 
-        <article id="recommended-movies-grid">
+        <div id="recommended-movies-flexbox">
             <div class="recommended-movie"
                  th:each="movie : ${recommendedMovies}"
                  th:if="${movie.posterUrl != null}">
@@ -203,8 +208,10 @@
                     </div>
                 </a>
             </div>
-        </article>
+        </div>
+
     </section>
+
 
     <script>
         //SCRIPT FOR VISUALISER MASKS
@@ -240,6 +247,7 @@
                 const wall2 = document.getElementById("wall2-overlay");
                 if (nightstand) nightstand.style.backgroundColor = colour;
                 if (wall2) wall2.style.backgroundColor = colour;
+
             }
 
             // Room 2 overlays
@@ -249,6 +257,37 @@
                 const wall22 = document.getElementById("bedroom2-wall2-overlay");
                 if (coving2) coving2.style.backgroundColor = colour;
                 if (wall22) wall22.style.backgroundColor = colour;
+            }
+        }
+        function resetpaint() {
+            // Room 1 overlays
+            const ceiling = document.getElementById("bedroom-overlay");
+            const wall1 = document.getElementById("wall-overlay");
+            const nightstand = document.getElementById("nightstand-overlay");
+            const wall2 = document.getElementById("wall2-overlay");
+            if (room1 && room1.style.display !== "none") {
+                const nightstand = document.getElementById("nightstand-overlay");
+                const wall2 = document.getElementById("wall2-overlay");
+                if (ceiling) ceiling.style.backgroundColor = "";
+                if (wall1) wall1.style.backgroundColor = "";
+                if (nightstand) nightstand.style.backgroundColor = "";
+                if (wall2) wall2.style.backgroundColor = "";
+
+            }
+
+            // Room 2 overlays
+            const ceiling2 = document.getElementById("bedroom2-ceiling-overlay");
+            const wall21 = document.getElementById("bedroom2-wall1-overlay");
+            const coving2 = document.getElementById("bedroom2-coving-overlay");
+            const wall22 = document.getElementById("bedroom2-wall2-overlay");
+            if (room2 && room2.style.display !== "none") {
+                const coving2 = document.getElementById("bedroom2-coving-overlay");
+                const wall22 = document.getElementById("bedroom2-wall2-overlay");
+                if (ceiling2) ceiling2.style.backgroundColor = "";
+                if (wall21) wall21.style.backgroundColor = "";
+                if (coving2) coving2.style.backgroundColor = "";
+                if (wall22) wall22.style.backgroundColor = "";
+
             }
         }
 
