@@ -26,13 +26,11 @@ button{
 }
 
 button:hover {
-   background-color: #FBF4EE;
-   color: #E18E26;
+   background-color: #BF9055;
 }
 
 button:active {
    background-color: #575548;
-   color: #FBF4EE;
 }
 
 /* main grid */

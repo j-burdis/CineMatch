@@ -9,19 +9,12 @@ body {
   background-color: #FBF4EE;
   font-family: 'Roboto', sans-serif;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
+/* links */
 a {
   text-decoration: none;
-  margin-left: 5px;
-}
-
-a:hover{
-  color: #1E1D17;
-}
-
-a:active{
-  color: #FBF4EE;
 }
 
 /* buttons */
@@ -34,24 +27,27 @@ button{
    font-weight: 500;
    border-radius: 10px;
    text-align: center;
+   max-width: 1592px;
 }
 
 
 /* GENERAL LAYOUT*/
 #main-container{
   display: grid;
-  grid-template-columns: 1fr;
   grid-template-rows: auto;
   gap: 50px;
-  width: 100vw;
-  max-width: 2000px;
-  padding: 60px 100px;
+  margin: 0 auto;
+  padding: 60px 80px;
+  max-width: 1405px;
+  min-width: 530px;
+  box-sizing: border-box;
 }
 
 
 /*HEADER SECTION*/
 #logo {
     grid-row: 1;
+    margin-left: 30px;
 }
 
 #logo img{
@@ -67,17 +63,18 @@ button{
 }
 
 
-/*movie information and palettes*/
+/* movie information and poster */
 #movie-title{
     grid-row: 3;
     font-size: 25px;
     font-weight: 600;
     color: #1E1D17;
-    margin-bottom: 5px;
+    margin: 0px;
 }
 
 #movie-poster{
     grid-column: 1;
+    margin-left: 30px;
 }
 
 #movie-poster img{
@@ -93,27 +90,23 @@ button{
     height: 100%;
 }
 
-#movie-title{
-    margin: 0px;
-    font-size: 25px;
-    font-weight: 600;
+/* colour palettes */
+#colour-palette-group {
+    margin-top: auto;
 }
 
 #colour-palette-heading{
     margin: 0px;
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-
 }
-
 
 .colour-palette{
     grid-row: 5;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-
 }
 
 #palette-1{
@@ -124,8 +117,10 @@ button{
     margin-bottom: 5px;
 }
 
-#colour-palette-group {
-    margin-top: auto;
+.colour-box {
+     width: 70px;
+     height: 150px;
+     margin: 0px;
 }
 
 
@@ -135,62 +130,60 @@ button{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.25fr 3fr;
-    background-color: #F8E9D8;
-    /* stretching background colour across full viewport */
+    padding: 60px 0;
+    position: relative;
+}
+
+/* full-width background */
+#visualiser-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100vw;
-    margin-left: calc(-1 * 100px);
-    margin-right: calc(-1 * 100px);
-    padding: 60px 100px;
+    background-color: #F8E9D8;
+    z-index: -1;
 }
 
 #visualiser-heading{
     grid-row: 1;
     grid-column: 1 / span 2;
     justify-self: center;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 600;
+    margin: 0px;
 }
 
-
+/* colour matches styling */
 #dulux-colours-container{
     grid-row: 2;
     grid-column: 1;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-
-.matched-colour-palette{
-}
-
-#room-container{
-    grid-row: 2;
-    grid-column: 2;
-    display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    padding: 35px;
 }
 
-
-#room-selector{
+#matched-colour-palette{
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#e-commerce-container{
-    grid-row: 4;
-}
-
-/* COLOUR PALETTE STYLING */
-.colour-box {
-     width: 50px;
-     height: 150px;
-     margin: 0px;
+#secondary-matched-colour-palette{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .matched-colour-box {
-     width: 100px;
-     height: 50px;
-     margin: 0px;
+    width: 100px;
+    height: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .dulux-paint-name{
@@ -200,29 +193,206 @@ button{
     padding: 5px;
 }
 
-.dulux-buy-link{
-    font-size: 12px;
-    font-weight: 500;
-    color: #E18E26;
-    margin-top: 1px;
+.style-button{
+    display: none;
+    width: 48%;
+    box-sizing: border-box;
+    border-radius: 0px;
+    font-size: 10px;
+    padding: 2px;
+    opacity: 0.8;
 }
+
+.style-button:hover{
+    background-color: #BF9055;
+}
+.style-button:active{
+    background-color: #575548;
+}
+
+
+.dulux-buy-link {
+    display: block;
+    background-color: #E18E26;
+    color: #FBF4EE;
+    padding: 4px 15px;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12px;
+    width: fit-content;
+}
+
+.dulux-buy-link:hover{
+    background-color: #BF9055;
+}
+
+.dulux-buy-link:active{
+    background-color: #575548;
+}
+
+
+/* room selector and preview styling */
+#room-container{
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 10px;
+    padding-top: 15px;
+}
+
+#room-selector{
+    width: 30%;
+}
+
+/* room preview styling with masks */
+.bedroom-preview {
+    position: relative;
+    display: inline-block;
+    margin: 20px 20px 20px 0;
+}
+
+.bedroom-preview img.bedroom-base {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.bedroom-preview .mask_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    object-fit: cover;
+}
+
+.mask_overlay {
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-size: cover;
+}
+
+
+/* E-COMMERCE SECTION */
+#e-commerce-container{
+    grid-row: 4;
+    display: grid;
+
+}
+
+#e-commerce-heading{
+    font-size: 25px;
+    font-weight: 600;
+    color: #1E1D17;
+    text-align: center;
+}
+
 
 
 /*MEDIA QUERIES and WEBKIT/ FIREFOX*/
 /* center content vertically on taller screens */
-@media (max-width: 930px) {
+@media (max-width: 1359px) {
   .colour-box {
-    width: 50px;
     height: 75px;
   }
 }
 
-@media (max-width: 633px) {
+@media (max-width: 940px) {
   .colour-box {
-    width: 50px;
     height: 50px;
   }
 }
+
+@media (max-width: 1331px) {
+  #dulux-colours-container {
+    padding-right: 0px;
+  }
+}
+
+@media (max-width: 1320px) {
+  #visualiser-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  #visualiser-heading {
+    grid-row: 1;
+    grid-column: 1;
+    text-align: center;
+  }
+
+  #dulux-colours-container {
+    grid-row: 3;
+    grid-column: 1;
+    padding: 35px;
+    justify-self: center;
+  }
+
+  #matched-colour-palette{
+    justify-content: center;
+  }
+
+  #secondary-matched-colour-palette{
+    justify-content: center;
+  }
+
+  #room-container {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1149px) {
+  #dulux-colours-container {
+    padding: 0;
+  }
+}
+
+@media (max-width: 799px) {
+  #movie-information-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  #movie-poster {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: center;
+    margin: 0;
+  }
+
+  #movie-details {
+    grid-row: 2;
+    grid-column: 1;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .colour-palette{
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 610px) {
+  #room-selector {
+    width: 80%;
+  }
+}
+
 /* Chrome, Safari, Edge Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
@@ -279,7 +449,6 @@ button{
 .bedroom-preview2 {
     position: relative;
     display: inline-block;
-    max-width: 407px;   /* or whatever max width you want */
     max-height: 525px;  /* optional, based on your overlay aspect ratio */
 }
 .bedroom-preview2 .bedroom-base {
@@ -299,7 +468,7 @@ button{
     mask-size: cover;
  }
 
-/* RECOMMENDATIONS SECTION - Add this to your movie-page.css file */
+/* RECOMMENDATIONS SECTION */
 
 #recommendations-container {
  grid-row: 5;
@@ -410,4 +579,3 @@ button{
  .dominant-colour-indicator {
      height: 4px;
  }
-}
