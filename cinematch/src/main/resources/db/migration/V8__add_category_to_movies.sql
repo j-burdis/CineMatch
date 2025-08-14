@@ -1,0 +1,2 @@
+ALTER TABLE Movies
+ADD COLUMN category VARCHAR(50);
