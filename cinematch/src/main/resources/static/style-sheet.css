@@ -45,7 +45,7 @@ a {
     margin-left: 150px;
     margin-right: 100px;
     grid-template-columns:  1fr ;
-    grid-template-rows: auto 1fr;;
+    grid-template-rows: auto 1fr;
     height: 100%;
 }
 

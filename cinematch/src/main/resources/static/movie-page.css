@@ -112,8 +112,7 @@ button:active{
 }
 
 #back-button {
-     margin: 0;
-     margin-bottom: 10px;
+     margin: 0 50px 10px 0;
      border-radius: 10px;
 }
 
@@ -142,8 +141,7 @@ button:active{
 }
 
 #colour-palette-heading{
-    margin: 0px;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
     font-size: 20px;
     font-weight: 600;
 }
@@ -199,7 +197,7 @@ button:active{
     justify-self: center;
     font-size: 25px;
     font-weight: 600;
-    margin: 0px;
+    margin: 0 0 40px;
 }
 
 /* colour matches styling */
@@ -209,7 +207,7 @@ button:active{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 35px;
+    padding: 18px 35px 35px;
 }
 
 #matched-colour-palette{
@@ -262,9 +260,9 @@ button:active{
     grid-column: 2;
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
-    padding: 10px;
-    padding-top: 15px;
+    padding: 15px 10px 10px;
 }
 
 
@@ -272,11 +270,10 @@ button:active{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: center;
-    margin-right: 20px;
-    gap: 10px
-}
+    justify-content: flex-start;
+    gap: 20px;
 
+}
 
 #room-selector{
     width: 25%;
@@ -329,10 +326,9 @@ button:active{
 /* RECOMMENDATIONS SECTION */
 #recommendations-container {
     grid-row: 5;
-    margin-top: 50px;
     display: grid;
     gap: 20px;
-    margin: 0 10px;
+    margin: 50px 10px 0;
 }
 
 #recommendations-heading {
@@ -518,6 +514,10 @@ button:active{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  #back-button {
+     margin-right: 0px;
   }
 }
 
