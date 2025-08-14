@@ -10,40 +10,49 @@
 </head>
 <body>
 
-    <main id="grid-container">
+<main id="grid-container">
 
-        <section id="search-menu-container">
-            <div id="logo">
-                <img src="cinematch-logo.png">
-            </div>
+    <section id="search-menu-container">
+        <div id="logo">
+            <a th:href="@{/movies}">
+                <img th:src="@{/cinematch-logo.png}" alt="CineMatch logo">
+            </a>
+        </div>
 
-            <article class="search-form">
-                <form  action="/movies/search" method="get">
-                    <input id="searchbar"  name="q" type="text" placeholder="Make your room look cinematic..." required>
-                    <button id="go-button" type="submit">go</button>
-                </form>
-            </article>
-
-            <article id="filter-buttons">
-                <button id="popular-button">popular</button>
-                <button id="top-rated-button">top rated</button>
-                <button id="upcoming-button">upcoming</button>
-                <button id="filter-button">filter</button>
-            </article>
-        </section>
-
-        <article id="movie-selection-container">
-            <ul id="movie-list">
-                <li class="movie-poster" th:each="movie : ${movies}" th:id="'movie-' + ${movie.id}">
-                    <a th:href="@{/movies/{id}(id=${movie.id})}">
-                        <img  th:src="${movie.posterUrl}" alt="Poster"/>
-                    </a>
-                </li>
-
-            </ul>
+        <article class="search-form">
+            <form action="/movies/search" method="get">
+                <input id="searchbar" name="q" type="text" placeholder="Make your room look cinematic..." required>
+                <button id="go-button" type="submit">go</button>
+            </form>
         </article>
 
-    </main>
+        <article id="filter-buttons">
+            <a th:href="@{/movies/popular}">
+                <button id="popular-button">popular</button>
+            </a>
+            <a th:href="@{/movies/top_rated}">
+                <button id="top-rated-button">top rated</button>
+            </a>
+            <a th:href="@{/movies/upcoming}">
+                <button id="upcoming-button">upcoming</button>
+            </a>
+
+            <button id="filter-button">filter</button>
+          </article>
+
+    </section>
+
+    <article id="movie-selection-container">
+        <ul id="movie-list">
+            <li class="movie-poster" th:each="movie : ${movies}" th:id="'movie-' + ${movie.id}">
+                <a th:href="@{/movies/{id}(id=${movie.id})}">
+                    <img th:src="${movie.posterUrl}" th:alt="${movie.title + ' poster'}"/>
+                </a>
+            </li>
+        </ul>
+    </article>
+
+</main>
 </body>
 
 </html>

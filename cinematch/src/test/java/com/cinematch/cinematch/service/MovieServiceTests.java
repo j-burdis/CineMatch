@@ -41,7 +41,7 @@ public class MovieServiceTests {
         // Assert: should return movies from DB - no API call
         assertEquals(mockMovies, result);
         // ensure method not called
-        verify(spyService, never()).fetchAndSaveMoviesFromApi();
+        verify(spyService, never()).fetchAndSaveMoviesFromApi("popular");
     }
 
     @Test
@@ -53,12 +53,12 @@ public class MovieServiceTests {
         List<Movie> apiMovies = List.of(
                 new Movie(1L, "Test Movie Title", "Some Poster URL", "2014-11-07", "Dominant Colour")
         );
-        doReturn(apiMovies).when(spyService).fetchAndSaveMoviesFromApi();
+        doReturn(apiMovies).when(spyService).fetchAndSaveMoviesFromApi("popular");
         // Act
         List<Movie> result = spyService.getPopularMovies();
         // Assert
         assertEquals(apiMovies, result);
-        verify(spyService).fetchAndSaveMoviesFromApi();
+        verify(spyService).fetchAndSaveMoviesFromApi("popular");
     }
 
 

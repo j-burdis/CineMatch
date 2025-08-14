@@ -31,6 +31,9 @@ public class Movie {
     @Column(name = "dominant_colour")
     private String dominantColour;
 
+    @Column(name = "category")
+    private String category;
+
     // Additional field for API response mapping
     @Transient
     private String poster_path;
