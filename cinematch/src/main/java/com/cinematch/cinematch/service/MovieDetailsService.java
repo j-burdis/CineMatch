@@ -15,18 +15,21 @@ public class MovieDetailsService {
     private final PaintMatchService paintMatchService;
     private final MovieService movieService;
     private final ImageService imageService;
+    private final MovieRecommendationService movieRecommendationService;
 
     public MovieDetailsService(
             ColourService colourService,
             PaletteToDuluxService paletteToDuluxService,
             PaintMatchService paintMatchService,
             MovieService movieService,
-            ImageService imageService) {
+            ImageService imageService,
+            MovieRecommendationService movieRecommendationService) {
         this.colourService = colourService;
         this.paletteToDuluxService = paletteToDuluxService;
         this.paintMatchService = paintMatchService;
         this.movieService = movieService;
         this.imageService = imageService;
+        this.movieRecommendationService = movieRecommendationService;
     }
 
     public ModelAndView buildMovieDetail(Long movieId) {
@@ -64,6 +67,8 @@ public class MovieDetailsService {
 
         Movie movie = movieService.findById(movieId);
 
+        List<Movie> recommendedMovies = movieRecommendationService.getSimilarColourRecommendations(movieId, 8);
+
         ModelAndView mav = new ModelAndView("colour-palette");
         mav.addObject("coloursArray", dominantPalette);
         mav.addObject("secondaryColours", secondaryPalette);
@@ -73,6 +78,8 @@ public class MovieDetailsService {
         mav.addObject("title", movie.getTitle());
 
         mav.addObject("movieDetail", movie);
+
+        mav.addObject("recommendedMovies", recommendedMovies);
 
         return mav;
     }
