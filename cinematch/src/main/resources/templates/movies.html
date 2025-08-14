@@ -37,14 +37,17 @@
                 <button id="upcoming-button">upcoming</button>
             </a>
 
-            <button id="filter-button">filter</button>
+            <button id="filter-button">sort</button>
           </article>
 
     </section>
 
     <article id="movie-selection-container">
         <ul id="movie-list">
-            <li class="movie-poster" th:each="movie : ${movies}" th:id="'movie-' + ${movie.id}">
+            <li class="movie-poster"
+                th:each="movie : ${movies}"
+                th:id="'movie-' + ${movie.id}"
+                th:data-title="${movie.title}">
                 <a th:href="@{/movies/{id}(id=${movie.id})}">
                     <img th:src="${movie.posterUrl}" th:alt="${movie.title + ' poster'}"/>
                 </a>
@@ -53,6 +56,46 @@
     </article>
 
 </main>
+<script>
+    //SCRIPT FOR SORT BUTTON
+    document.addEventListener("DOMContentLoaded", () => {
+        const sortButton = document.getElementById("filter-button");
+        const movieList = document.getElementById("movie-list");
+
+        // saving original order here
+        const originalOrder = Array.from(movieList.querySelectorAll("li"));
+        let sortState = 0;
+
+        sortButton.addEventListener("click", () => {
+            let movies;
+
+            if (sortState === 0) {
+                // sort a - z
+                movies = [...originalOrder].sort((a, b) =>
+                    a.dataset.title.toLowerCase().localeCompare(b.dataset.title.toLowerCase())
+                );
+                sortState = 1;
+            }
+            else if (sortState === 1) {
+                // sort z - a
+                movies = [...originalOrder].sort((a, b) =>
+                    b.dataset.title.toLowerCase().localeCompare(a.dataset.title.toLowerCase())
+                );
+                sortState = 2;
+            }
+            else {
+                // restore original order
+                movies = [...originalOrder];
+                sortState = 0;
+            }
+
+            // re-render
+            movieList.innerHTML = "";
+            movies.forEach(movie => movieList.appendChild(movie));
+        });
+    });
+</script>
+
 </body>
 
 </html>
