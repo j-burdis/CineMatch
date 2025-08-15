@@ -4,7 +4,7 @@
   <a href="https://github.com/your-username/cinematch">
     <img src="images/logo.png" alt="Cinematch Logo" width="80" height="80">
   </a>
-  <h3 align="center">Cinematch</h3>
+  <h3 align="center">Cinematch (<a href="https://cinematch.uk">cinematch.uk</a>)</h3>
   <p align="center">
     Tear open the silver screen and step inside your favorite movie posters! Cinematch extracts color palettes from posters and recommends Dulux paints inspired by them, perfect for turning your space into a cinematic experience.  
     <br />
