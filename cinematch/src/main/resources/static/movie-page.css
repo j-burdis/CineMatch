@@ -10,6 +10,7 @@ body {
   font-family: 'Roboto', sans-serif;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: 20px;
 }
 
 /* links */
@@ -68,7 +69,6 @@ button:active{
 #main-container{
   display: grid;
   grid-template-rows: auto;
-  gap: 32px;
   margin: 0 auto;
   padding: 4px 80px 60px 80px;
   max-width: 1405px;
@@ -81,6 +81,7 @@ button:active{
 #logo {
     grid-row: 1;
     margin-left: 30px;
+    margin-bottom: 20px;
 }
 
 #logo img{
@@ -176,7 +177,8 @@ button:active{
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.25fr 3fr;
     position: relative;
-
+    padding-top: 35px;
+    padding-bottom: 35px;
 }
 
 /* full-width background */
@@ -397,7 +399,7 @@ button:active{
 #e-commerce-container{
     grid-row: 4;
     display: grid;
-
+    margin: 0 50px 20px 50px;
 }
 
 #e-commerce-heading{
@@ -405,6 +407,7 @@ button:active{
     font-weight: 600;
     color: #1E1D17;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 #redbubble-section {
@@ -412,7 +415,7 @@ button:active{
 }
 
 .redbubble-link-container {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    background: #E18E26;
     padding: 1.5rem;
     border-radius: 12px;
     text-align: center;
@@ -474,41 +477,25 @@ button:active{
 
 /*MEDIA QUERIES and WEBKIT/ FIREFOX*/
 
-/* 1359px breakpoint */
-@media (max-width: 1359px) {
+/* 1400px breakpoint */
+@media (max-width: 1400px) {
   .colour-box {
        height: 75px;
   }
-}
-
-/* 940px breakpoint */
-@media (max-width: 940px) {
-  .colour-box {
-       height: 50px;
-  }
-
-  #recommended-movies-grid {
-       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-       gap: 15px;
-   }
-
-   .recommended-poster {
-       height: 200px;
-   }
-
-   .recommended-title {
-       font-size: 13px;
-   }
-
-   #recommendations-heading {
-       font-size: 20px;
-   }
 }
 
 /* 1331px breakpoint */
 @media (max-width: 1331px) {
   #dulux-colours-container {
     padding-right: 0px;
+  }
+
+  #room-container{
+    padding: 10px;
+  }
+
+  .bedroom-preview{
+    margin: 20px 0 0 0;
   }
 }
 
@@ -548,11 +535,10 @@ button:active{
   }
 
   #button-menu{
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
   }
+
 }
 
 /* 1149px breakpoint */
@@ -562,8 +548,32 @@ button:active{
   }
 }
 
-/* 799px breakpoint */
-@media (max-width: 799px) {
+/* 979px breakpoint */
+@media (max-width: 979px) {
+  .colour-box {
+       height: 50px;
+  }
+
+  #recommended-movies-grid {
+       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+       gap: 15px;
+   }
+
+   .recommended-poster {
+       height: 200px;
+   }
+
+   .recommended-title {
+       font-size: 13px;
+   }
+
+   #recommendations-heading {
+       font-size: 20px;
+   }
+}
+
+/* 840px breakpoint */
+@media (max-width: 880px) {
   #movie-information-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
@@ -596,6 +606,12 @@ button:active{
 
   #back-button {
      margin-right: 0px;
+  }
+
+  #logo {
+    justify-self: center;
+    align-self: center;
+    margin-left: 0px;
   }
 }
 
@@ -635,8 +651,27 @@ button:active{
    .dominant-colour-indicator {
        height: 4px;
    }
+
+  #button-menu{
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+       gap: 10px;
+    }
+
+  #button-menu button{
+    width: 50%;
+
+  }
+
 }
 
+/* 569px breakpoint */
+@media (max-width: 569px) {
+  #visualiser-container::before {
+    background-color: transparent;
+  }
+}
 
 
 /* Chrome, Safari, Edge Scrollbar */
