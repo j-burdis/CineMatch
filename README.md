@@ -1,8 +1,9 @@
 <a id="readme-top"></a>
 
+
 <div align="center">
-  <a href="https://github.com/your-username/cinematch">
-    <img src="images/logo.png" alt="Cinematch Logo" width="80" height="80">
+  <a href="https://github.com/j-burdis/cinematch">
+    <img width="483" height="152" alt="logo" src="https://github.com/user-attachments/assets/b1880708-697f-4bfa-9233-cfb3e89efec6" />
   </a>
   <h3 align="center">Cinematch (<a href="https://cinematch.uk">cinematch.uk</a>)</h3>
   <p align="center">
