@@ -19,12 +19,11 @@ public class MovieRecommendationService {
         this.imageService = imageService;
     }
 
-
+//    main public method
 //     Get movie recommendations based on colour similarity
-//     @param currentMovieId The movie to base recommendations on
-//     @param limit Maximum number of recommendations to return
-//     @return List of recommended movies
-
+//     @param currentMovieId - the movie to base recommendations on
+//     @param limit - maximum number of recommendations
+//     return list of recommended movies
     public List<Movie> getColourBasedRecommendations(Long currentMovieId, int limit) {
         Movie currentMovie = movieRepository.findById(currentMovieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -45,43 +44,26 @@ public class MovieRecommendationService {
                 .collect(Collectors.toList());
     }
 
-//    Get recommendations based on similar dominant colours only
-//    @param currentMovieId The movie to base recommendations on
-//    @param limit Maximum number of recommendations
-//    @return List of recommended movies with similar colour palettes
-
-    public List<Movie> getSimilarColourRecommendations(Long currentMovieId, int limit) {
-        return getColourBasedRecommendations(currentMovieId, limit);
-    }
-
-//
-//    Calculate colour similarity using perceptual colour distance
-//    Returns a value between 0 (very different) and 1 (identical)
-//
+//    private calculation method
+//    calculate colour similarity using perceptual colour distance
+//    returns value between 0 (very different) and 1 (identical)
     private double calculateColourSimilarity(int[] rgb1, int[] rgb2) {
-        // Use perceptual color distance (similar to ImageService)
+        // use perceptual color distance
         double deltaR = rgb1[0] - rgb2[0];
         double deltaG = rgb1[1] - rgb2[1];
         double deltaB = rgb1[2] - rgb2[2];
 
-        // Weighted Euclidean distance (human eye sensitivity)
+        // weighted Euclidean distance (human eye sensitivity)
         double distance = Math.sqrt(2 * deltaR * deltaR + 4 * deltaG * deltaG + 3 * deltaB * deltaB);
 
-        // Convert to similarity (0-1 scale, where 1 is identical)
-        // Maximum possible distance is approximately 764 for weighted RGB
+        // convert to similarity (0-1 scale, where 1 is identical)
+        // maximum possible distance is approximately 764 for weighted RGB
         double maxDistance = Math.sqrt(2 * 255 * 255 + 4 * 255 * 255 + 3 * 255 * 255);
         return 1.0 - (distance / maxDistance);
     }
 
-//      Calculate complementary colour (opposite on colour wheel)
-//      Not used in current implementation but kept for potential future use
-    private int[] getComplementaryColour(int[] rgb) {
-//      Simple complementary: invert each channel
-        return new int[]{255 - rgb[0], 255 - rgb[1], 255 - rgb[2]};
-    }
-
-//    Convert hex string to RGB array
-
+//    private utility method
+//    convert hex string to RGB array
     private int[] hexToRGB(String hex) {
         hex = hex.replace("#", "");
         if (hex.length() != 6) {
@@ -94,8 +76,7 @@ public class MovieRecommendationService {
         return new int[]{red, green, blue};
     }
 
-//    Helper class to store movie with its similarity score
-
+//    helper class - store movie with its similarity score
     private static class MovieWithSimilarity {
         private final Movie movie;
         private final double similarity;

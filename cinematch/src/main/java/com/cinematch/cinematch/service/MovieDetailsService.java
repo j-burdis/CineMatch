@@ -67,7 +67,7 @@ public class MovieDetailsService {
 
         Movie movie = movieService.findById(movieId);
 
-        List<Movie> recommendedMovies = movieRecommendationService.getSimilarColourRecommendations(movieId, 8);
+        List<Movie> recommendedMovies = movieRecommendationService.getColourBasedRecommendations(movieId, 8);
 
         ModelAndView mav = new ModelAndView("colour-palette");
         mav.addObject("coloursArray", dominantPalette);
