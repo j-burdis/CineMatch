@@ -122,6 +122,7 @@ button:active{
     margin-left: 30px;
 }
 
+
 #movie-poster img{
     width: auto;
     height: 420px;
@@ -410,181 +411,6 @@ button:active{
     text-align: center;
 }
 
-
-/*MEDIA QUERIES and WEBKIT/ FIREFOX*/
-
-@media (max-width: 1359px) {
-  .colour-box {
-       height: 75px;
-  }
-}
-
-@media (max-width: 940px) {
-  .colour-box {
-       height: 50px;
-  }
-
-  #recommended-movies-grid {
-       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-       gap: 15px;
-   }
-
-   .recommended-poster {
-       height: 200px;
-   }
-
-   .recommended-title {
-       font-size: 13px;
-   }
-
-   #recommendations-heading {
-       font-size: 20px;
-   }
-}
-
-@media (max-width: 1331px) {
-  #dulux-colours-container {
-    padding-right: 0px;
-  }
-}
-
-@media (max-width: 1320px) {
-  #visualiser-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
-  }
-
-  #visualiser-heading {
-    grid-row: 1;
-    grid-column: 1;
-    text-align: center;
-  }
-
-  #dulux-colours-container {
-    grid-row: 3;
-    grid-column: 1;
-    padding: 35px;
-    justify-self: center;
-  }
-
-  #matched-colour-palette{
-    justify-content: center;
-  }
-
-  #secondary-matched-colour-palette{
-    justify-content: center;
-  }
-
-  #room-container {
-    grid-row: 2;
-    grid-column: 1;
-    justify-self: center;
-    align-items: center;
-  }
-
-  #button-menu{
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-  }
-}
-
-@media (max-width: 1149px) {
-  #dulux-colours-container {
-    padding: 0;
-  }
-}
-
-@media (max-width: 799px) {
-  #movie-information-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-  }
-
-  #movie-poster {
-    grid-row: 1;
-    grid-column: 1;
-    justify-self: center;
-    margin: 0;
-  }
-
-  #movie-details {
-    grid-row: 2;
-    grid-column: 1;
-    margin-left: 0;
-    align-items: center;
-    text-align: center;
-  }
-
-  .colour-palette{
-    justify-content: center;
-  }
-
-  #title-container{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #back-button {
-     margin-right: 0px;
-  }
-}
-
-
-@media (max-width: 610px) {
-  #room-selector {
-    width: 80%;
-  }
-
-  #recommended-movies-grid {
-       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-       gap: 12px;
-   }
-
-   .recommended-poster {
-       height: 180px;
-   }
-
-   .recommended-title {
-       font-size: 12px;
-   }
-
-   #recommendations-heading {
-       font-size: 18px;
-       margin-bottom: 20px;
-   }
-
-   .dominant-colour-indicator {
-       height: 4px;
-   }
-}
-
-
-
-/* Chrome, Safari, Edge Scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: #FBF4EE;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #E18E26;
-  border-radius: 6px;
-  border: 3px solid #FBF4EE;
-}
-
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #E18E26 #FBF4EE;
-}
-
-/* RedBubble Section */
 #redbubble-section {
     margin-top: 2rem;
 }
@@ -648,6 +474,136 @@ button:active{
     opacity: 0.8;
 }
 
+
+
+/*MEDIA QUERIES and WEBKIT/ FIREFOX*/
+
+/* 1359px breakpoint */
+@media (max-width: 1359px) {
+  .colour-box {
+       height: 75px;
+  }
+}
+
+/* 940px breakpoint */
+@media (max-width: 940px) {
+  .colour-box {
+       height: 50px;
+  }
+
+  #recommended-movies-grid {
+       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+       gap: 15px;
+   }
+
+   .recommended-poster {
+       height: 200px;
+   }
+
+   .recommended-title {
+       font-size: 13px;
+   }
+
+   #recommendations-heading {
+       font-size: 20px;
+   }
+}
+
+/* 1331px breakpoint */
+@media (max-width: 1331px) {
+  #dulux-colours-container {
+    padding-right: 0px;
+  }
+}
+
+/* 1320px breakpoint */
+@media (max-width: 1320px) {
+  #visualiser-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  #visualiser-heading {
+    grid-row: 1;
+    grid-column: 1;
+    text-align: center;
+  }
+
+  #dulux-colours-container {
+    grid-row: 3;
+    grid-column: 1;
+    padding: 35px;
+    justify-self: center;
+  }
+
+  #matched-colour-palette{
+    justify-content: center;
+  }
+
+  #secondary-matched-colour-palette{
+    justify-content: center;
+  }
+
+  #room-container {
+    grid-row: 2;
+    grid-column: 1;
+    justify-self: center;
+    align-items: center;
+  }
+
+  #button-menu{
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+  }
+}
+
+/* 1149px breakpoint */
+@media (max-width: 1149px) {
+  #dulux-colours-container {
+    padding: 0;
+  }
+}
+
+/* 799px breakpoint */
+@media (max-width: 799px) {
+  #movie-information-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  #movie-poster {
+    grid-row: 1;
+    grid-column: 1;
+    justify-self: center;
+    margin: 0;
+  }
+
+  #movie-details {
+    grid-row: 2;
+    grid-column: 1;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .colour-palette{
+    justify-content: center;
+  }
+
+  #title-container{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #back-button {
+     margin-right: 0px;
+  }
+}
+
+/* 768px breakpoint */
 @media (max-width: 768px) {
     .redbubble-link {
         flex-direction: column;
@@ -655,3 +611,56 @@ button:active{
         text-align: center;
     }
 }
+
+/* 610px breakpoint */
+@media (max-width: 610px) {
+  #room-selector {
+    width: 80%;
+  }
+
+  #recommended-movies-grid {
+       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+       gap: 12px;
+   }
+
+   .recommended-poster {
+       height: 180px;
+   }
+
+   .recommended-title {
+       font-size: 12px;
+   }
+
+   #recommendations-heading {
+       font-size: 18px;
+       margin-bottom: 20px;
+   }
+
+   .dominant-colour-indicator {
+       height: 4px;
+   }
+}
+
+
+
+/* Chrome, Safari, Edge Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FBF4EE;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E18E26;
+  border-radius: 6px;
+  border: 3px solid #FBF4EE;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #E18E26 #FBF4EE;
+}
+
