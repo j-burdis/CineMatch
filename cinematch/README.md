@@ -48,8 +48,8 @@ Cinematch is a Spring Boot application that scrapes Redbubble for movie poster i
 
 * Java
 * Spring Boot
-* Selenium
-*Maven
+* JSoup
+* Gradle
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -61,9 +61,8 @@ Follow these steps to run Cinematch locally.
 
 ### Prerequisites
 
-* Java 17+
-* Maven
-* ChromeDriver (for Selenium)
+* Java 21
+* JSoup
 * * Internet connection for API requests
 
 [//]: # (```bash)
@@ -81,10 +80,10 @@ Follow these steps to run Cinematch locally.
    git clone https://github.com/github_username/cinematch.git
 2. Build the project:
     ```sh
-    mvn clean install
+    ./gradlew build
 3. Run the app:
    ```sh
-   java -jar target/cinematch.jar
+   ./gradlew bootRun
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 Usage:
 Upload a movie poster or select one from the database. Cinematch scans its color palette and recommends corresponding Dulux paint shades for your space.
