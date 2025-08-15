@@ -27,7 +27,10 @@
         </article>
 
         <article id="filter-buttons">
-            <button id="filter-button">sort</button>
+            <button id="filter-button">sort: original</button>
+            <a th:href="@{/movies}">
+                <button id="all-button">all movies</button>
+            </a>
             <a th:href="@{/movies/popular}">
                 <button id="popular-button">popular</button>
             </a>
@@ -65,6 +68,12 @@
         const originalOrder = Array.from(movieList.querySelectorAll("li"));
         let sortState = 0;
 
+        // Function to update button text based on sort state
+        function updateButtonText() {
+            const states = ["original", "A-Z", "Z-A"];
+            sortButton.textContent = `sort: ${states[sortState]}`;
+        }
+
         sortButton.addEventListener("click", () => {
             let movies;
 
@@ -87,6 +96,9 @@
                 movies = [...originalOrder];
                 sortState = 0;
             }
+
+            // Update button text to show current sort
+            updateButtonText();
 
             // re-render
             movieList.innerHTML = "";

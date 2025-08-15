@@ -54,8 +54,6 @@ a {
     grid-row: 1;
     grid-column: 2;
     padding: 0px;
-    padding-bottom: 30px;
-    padding-top: 60px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, 0.5fr);
@@ -115,6 +113,15 @@ a {
 #filter-buttons{
     grid-row: 3;
     margin-top: 10px;
+}
+
+/* #upcoming-button{
+    margin-right: 30px;
+} */
+
+
+#filter-buttons button {
+  margin-bottom: 8px;
 }
 
 

@@ -28,7 +28,7 @@
 
             <div id="title-container">
                 <p id="movie-title" th:text="${title}"></p>
-                <a id="back-button" class="link-as-button" th:href="@{/movies}">back to movies</a>
+                <a id="back-button" class="link-as-button" th:href="@{'/movies#movie-' + ${movieDetail.id}}">back to movies</a>
             </div>
 
             <div id="colour-palette-group">
@@ -125,7 +125,7 @@
                 <button id="reset-button"
                         type="button"
                         onclick="resetpaint()">
-                    Reset
+                    reset
                 </button>
             </div>
 
