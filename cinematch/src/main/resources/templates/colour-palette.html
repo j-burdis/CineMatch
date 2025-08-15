@@ -12,11 +12,11 @@
 <body>
 
 <main id="main-container">
-    <div id="logo"> <!-- row 1 -->
+    <section id="logo"> <!-- row 1 -->
         <a th:href="@{/movies}">
             <img th:src="@{/cinematch-logo.png}" alt="CineMatch logo">
         </a>
-    </div>
+    </section>
 
     <section id="movie-information-container"> <!-- row 2 --> <!--grid 2 columns, 1 row-->
         <article id="movie-poster">
@@ -25,29 +25,28 @@
 
         <article id="movie-details"><!--col 2--> <!-- flexbox align col-->
 
-
-            <div id="title-container">
+            <article id="title-container">
                 <p id="movie-title" th:text="${title}"></p>
                 <a id="back-button" class="link-as-button" th:href="@{'/movies#movie-' + ${movieDetail.id}}">back to movies</a>
-            </div>
+            </article>
 
-            <div id="colour-palette-group">
+            <article id="colour-palette-group">
                 <p id="colour-palette-heading">colour palettes</p>
 
                 <div class="colour-palette" id="palette-1" th:if="${coloursArray != null}">
-                    <article class="colour-box"
-                             th:each="colour : ${coloursArray}"
-                             th:style="'background-color:' + ${colour}">
-                    </article>
+                    <div class="colour-box"
+                         th:each="colour : ${coloursArray}"
+                         th:style="'background-color:' + ${colour}">
+                    </div>
                 </div>
 
                 <div class="colour-palette" id="palette-2" th:if="${secondaryColours != null}">
-                    <article class="colour-box"
+                    <div class="colour-box"
                              th:each="colour : ${secondaryColours}"
                              th:style="'background-color:' + ${colour}">
-                    </article>
+                    </div>
                 </div>
-            </div>
+            </article>
 
         </article>
     </section>
@@ -88,8 +87,8 @@
             </div>
 
             <!---second matched palette -->
-            <section id="secondary-matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}" th:if="${closestSecondaryMatches != null}">
-                <article th:each="match : ${closestSecondaryMatches}"
+            <div id="secondary-matched-colour-palette" th:with="seenColours=${new java.util.HashSet()}" th:if="${closestSecondaryMatches != null}">
+                <div th:each="match : ${closestSecondaryMatches}"
                          th:if="${seenColours.add(match.hexCode)}"
                          style="display: inline-block;">
                     <div class="matched-colour-box"
@@ -115,8 +114,8 @@
                        target="_blank">
                         buy
                     </a>
-                </article>
-            </section>
+                </div>
+            </div>
         </article>
 
         <article id="room-container"> <!-- row 2 col 2 --> <!--flexbox-->
@@ -132,27 +131,25 @@
             <div class="bedroom-preview" id="room-1">
                 <img th:src="@{/Images/bedroom/Base_image.jpg}" class="bedroom-base" alt="Bedroom">
 
-                <div id="bedroom-overlay"
-                     class="mask_overlay"
-                     th:style="'-webkit-mask-image: url(' + @{/Images/bedroom/Mask_Ceiling.png} + '); ' +
-               '-webkit-mask-position: 0 0.5%; ' +
-               'mask-image: url(' + @{/Images/bedroom/Mask_Ceiling.png} + '); ' +
-               'mask-position: 0 -4.5%;'">
+
+                <div id="bedroom-overlay" class="mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + '); mask-image:url(' + @{/Images/bedroom/Mask_Ceiling.png} + ');'"
+                     th:styleappend="'transform: translateX(-0.3%);'">
                 </div>
-                <div id="wall-overlay"
-                     class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');'">
+
+                <div id="wall-overlay" class="mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + '); mask-image:url(' + @{/Images/bedroom/Mask_Wall-1.png} + ');'"
+                     th:styleappend="'transform: translateX(-0.8%);'">
                 </div>
-                <div id="wall2-overlay"
-                     class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');'">
+
+                <div id="wall2-overlay" class="mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + '); mask-image:url(' + @{/Images/bedroom/Mask_Wall-2.png} + ');'"
+                     th:styleappend="'transform: translateX(-0.8%);'">
                 </div>
-                <div id="nightstand-overlay"
-                     class = "mask_overlay"
-                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');
-                        mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');'">
+
+                <div id="nightstand-overlay" class="mask_overlay"
+                     th:style="'-webkit-mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + '); mask-image:url(' + @{/Images/bedroom/Mask_Nightstand.png} + ');'"
+                     th:styleappend="'transform: translateX(0.4%);'">
                 </div>
             </div>
 
@@ -183,22 +180,19 @@
                      style="position: absolute; top: 30.25%; left: 35%; width: 29%; height: 25.5%; z-index: 10; object-fit: cover;" />
             </div>
         </article>
-
-
     </section>
 
-    <section id="e-commerce-container"> <!-- row 3 --> <!-- probably a flex box -->
+    <section id="e-commerce-container"> <!-- row 3 --> <!-- flex box -->
         <p id="e-commerce-heading">Bring your favourite scenes home</p>
-        <section id="redbubble-section" style="display: none;">
+        <div id="redbubble-section" style="display: none;">
             <div id="redbubble-container"></div>
-        </section>
+        </div>
     </section>
 
     <section id="recommendations-container" th:if="${recommendedMovies != null}"> <!-- row 5 -->
-
         <p id="recommendations-heading">More movies with similar palettes</p>
 
-        <div id="recommended-movies-flexbox">
+        <article id="recommended-movies-flexbox">
             <div class="recommended-movie"
                  th:each="movie : ${recommendedMovies}"
                  th:if="${movie.posterUrl != null}">
@@ -216,10 +210,8 @@
                     </div>
                 </a>
             </div>
-        </div>
-
+        </article>
     </section>
-
 
     <script>
         //SCRIPT FOR VISUALISER MASKS
