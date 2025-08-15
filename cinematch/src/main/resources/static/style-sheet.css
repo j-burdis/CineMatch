@@ -10,7 +10,6 @@ body {
     min-width: 690px;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 /* buttons */
@@ -82,8 +81,8 @@ a {
     -webkit-user-select: text;
     all: unset;
     border: 2px solid #E18E26;
-    border-radius: 10px;
-    padding: 2px 10px;
+    border-radius: 12px;
+    padding: 4px 10px;
     width: 50%;
     max-width:1000px;
     box-sizing: border-box;
@@ -116,9 +115,10 @@ a {
     margin-top: 10px;
 }
 
-#upcoming-button{
+/* #upcoming-button{
     margin-right: 30px;
-}
+} */
+
 
 #filter-buttons button {
   margin-bottom: 8px;
@@ -169,6 +169,15 @@ a {
    margin: 0 auto;
 }
 
+.movie-poster {
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-poster:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(30, 29, 23, 0.15);
+}
 
 
 /* MEDIA QUERIES AND WEBKIT*/
