@@ -13,11 +13,11 @@
 <main id="grid-container">
 
     <section id="search-menu-container">
-        <div id="logo">
+        <article id="logo">
             <a th:href="@{/movies}">
                 <img th:src="@{/cinematch-logo.png}" alt="CineMatch logo">
             </a>
-        </div>
+        </article>
 
         <article class="search-form">
             <form action="/movies/search" method="get">
@@ -44,7 +44,7 @@
 
     </section>
 
-    <article id="movie-selection-container">
+    <section id="movie-selection-container">
         <ul id="movie-list">
             <li class="movie-poster"
                 th:each="movie : ${movies}"
@@ -55,7 +55,7 @@
                 </a>
             </li>
         </ul>
-    </article>
+    </section>
 
 </main>
 <script>
