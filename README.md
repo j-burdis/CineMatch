@@ -63,7 +63,7 @@ Follow these steps to run Cinematch locally.
 
 * Java 21
 * JSoup
-* * Internet connection for API requests
+* Internet connection for API requests
 
 [//]: # (```bash)
 
