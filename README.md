@@ -37,7 +37,9 @@
 
 ## About The Project
 
-[![Cinematch Screenshot][product-screenshot]](https://example.com)
+<img width="800" alt="Screenshot 2025-08-15 at 17 55 48" src="https://github.com/user-attachments/assets/9af50f08-a7bb-4222-ae1b-f3b77d559398" />
+
+
 
 Cinematch is a Spring Boot application that scrapes Redbubble for movie poster items, extracts the dominant colors from those posters, and recommends paint colors inspired by them. Perfect for movie fans who want their room to match their favorite films.
 
@@ -47,10 +49,9 @@ Cinematch is a Spring Boot application that scrapes Redbubble for movie poster i
 
 ### Built With
 
-* Java
-* Spring Boot
-* JSoup
-* Gradle
+[![My Skills](https://skillicons.dev/icons?i=java,spring,gradle,js,html,css)](https://skillicons.dev)
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,6 +93,7 @@ For detailed usage examples, check the [Documentation](https://docs.google.com/d
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Roadmap / Service Summary
 
 1. **MovieService** – Fetches movies from TMDB, extracts dominant colours, and stores them.
