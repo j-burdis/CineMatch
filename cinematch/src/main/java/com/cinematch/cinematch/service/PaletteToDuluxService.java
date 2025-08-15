@@ -14,17 +14,19 @@ public class PaletteToDuluxService {
         this.duluxColourRepository = duluxColourRepository;
     }
 
+//    main public method
     public List<DuluxColour> getClosestPaintMatches(List<String> paletteHexCodes) {
         List<DuluxColour> paintColours = duluxColourRepository.findAll();
-        List<Integer> indices = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11); // 1st, 5th, 9th, 12th
         List<DuluxColour> matches = new ArrayList<>();
-        for (int i : indices) {
+        for (int i = 0; i < paletteHexCodes.size() && i < 12; i++) {
             String hex = paletteHexCodes.get(i);
             DuluxColour closest = findClosestPaintMatch(hex, paintColours);
             matches.add(closest);
         }
         return matches;
     }
+
+//    core processing method
     private DuluxColour findClosestPaintMatch(String hexColour, List<DuluxColour> paintColours) {
         int[] rgb = hexToRGB(hexColour);
         DuluxColour closest = null;
@@ -42,6 +44,8 @@ public class PaletteToDuluxService {
         }
         return closest;
     }
+
+//    utility method
     private int[] hexToRGB(String hex) {
         hex = hex.replace("#", "");
         int r = Integer.parseInt(hex.substring(0, 2), 16);

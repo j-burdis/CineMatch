@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ImageService {
-
+//    main public methods
     public String getDominantColour(String imageUrl) {
         List<Map.Entry<Integer, Integer>> topColors = getTopColors(imageUrl, null, 0, 1);
         return topColors.isEmpty() ? null : "#" + rgbToHex(topColors.get(0).getKey());
@@ -50,6 +50,7 @@ public class ImageService {
         return bestColor != null ? "#" + rgbToHex(bestColor) : null;
     }
 
+//    core image processing
     private List<Map.Entry<Integer, Integer>> getTopColors(String imageUrl, int[] excludeRGB, int minDistance, int count) {
         try {
             BufferedImage image = ImageIO.read(new URL(imageUrl));
@@ -119,6 +120,7 @@ public class ImageService {
         return (quantizedR << 16) | (quantizedG << 8) | quantizedB;
     }
 
+//    colour filtering methods
     // Check if color is too dark
     private boolean isDarkColor(int[] rgb) {
         int brightness = (rgb[0] + rgb[1] + rgb[2]) / 3;
@@ -131,7 +133,26 @@ public class ImageService {
         return brightness > 240; // Threshold for lightness
     }
 
-    // Perceptual color distance using weighted RGB (human eye sensitivity)
+    // Overloaded method with custom tolerance
+    public static boolean isGray(int[] rgbArr, int tolerance) {
+        int red = rgbArr[0];
+        int green = rgbArr[1];
+        int blue = rgbArr[2];
+
+        int rgDiff = Math.abs(red - green);
+        int gbDiff = Math.abs(green - blue);
+        int rbDiff = Math.abs(red - blue);
+
+        return rgDiff < tolerance && gbDiff < tolerance && rbDiff < tolerance;
+    }
+
+    // original method for backward compatibility
+    public static boolean isGray(int[] rgbArr) {
+        return isGray(rgbArr, 25);
+    }
+
+//    colour analysis utilities
+    // perceptual color distance using weighted RGB (human eye sensitivity)
     private double perceptualColorDistance(int[] c1, int[] c2) {
         // Human eye is more sensitive to green, less to blue
         double deltaR = c1[0] - c2[0];
@@ -142,6 +163,15 @@ public class ImageService {
         return Math.sqrt(2 * deltaR * deltaR + 4 * deltaG * deltaG + 3 * deltaB * deltaB);
     }
 
+    private static double colourDistance(int[] c1, int[] c2) {
+        return Math.sqrt(
+                Math.pow(c1[0] - c2[0], 2) +
+                        Math.pow(c1[1] - c2[1], 2) +
+                        Math.pow(c1[2] - c2[2], 2)
+        );
+    }
+
+//    Colour conversion methods
     private static int[] getRGBArray(int rgb) {
         int red   = (rgb >> 16) & 0xFF;
         int green = (rgb >> 8) & 0xFF;
@@ -166,31 +196,5 @@ public class ImageService {
         int green = Integer.parseInt(hex.substring(2, 4), 16);
         int blue  = Integer.parseInt(hex.substring(4, 6), 16);
         return new int[]{red, green, blue};
-    }
-
-    // Overloaded method with custom tolerance
-    public static boolean isGray(int[] rgbArr, int tolerance) {
-        int red = rgbArr[0];
-        int green = rgbArr[1];
-        int blue = rgbArr[2];
-
-        int rgDiff = Math.abs(red - green);
-        int gbDiff = Math.abs(green - blue);
-        int rbDiff = Math.abs(red - blue);
-
-        return rgDiff < tolerance && gbDiff < tolerance && rbDiff < tolerance;
-    }
-
-    // Keep original method for backward compatibility
-    public static boolean isGray(int[] rgbArr) {
-        return isGray(rgbArr, 25);
-    }
-
-    private static double colourDistance(int[] c1, int[] c2) {
-        return Math.sqrt(
-                Math.pow(c1[0] - c2[0], 2) +
-                        Math.pow(c1[1] - c2[1], 2) +
-                        Math.pow(c1[2] - c2[2], 2)
-        );
     }
 }

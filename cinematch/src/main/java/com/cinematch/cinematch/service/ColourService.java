@@ -30,6 +30,43 @@ public class ColourService {
         this.imageService = imageService;
     }
 
+    public List<String> getOrCreateColours(Long movieId, String hex) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        // check if colours exist for this movie
+        Optional<ColourModel> existingColoursOpt = colourRepository.findByMovie(movie);
+
+        if (existingColoursOpt.isPresent()) {
+            ColourModel existingColours = existingColoursOpt.get();
+            // return existing colours as a list
+            return List.of(
+                    existingColours.getColour_1(), existingColours.getColour_2(),
+                    existingColours.getColour_3(), existingColours.getColour_4(),
+                    existingColours.getColour_5(), existingColours.getColour_6(),
+                    existingColours.getColour_7(), existingColours.getColour_8(),
+                    existingColours.getColour_9(), existingColours.getColour_10(),
+                    existingColours.getColour_11(), existingColours.getColour_12()
+            ).stream().filter(Objects::nonNull).collect(Collectors.toList());
+        }
+
+        // if no existing colours, fetch from API and save
+        // generate dominant palette
+        List<String> dominantPalette = getColours(hex);
+
+        // generate secondary palette
+        String secondaryHex = imageService.getSecondaryColour(
+                movie.getPosterUrl(),
+                "#" + hex // keep '#' for ImageService method
+        ).replace("#", "");
+        List<String> secondaryPalette = getColours(secondaryHex);
+
+        // Save both palettes
+        saveColours(movieId, dominantPalette, secondaryPalette);
+
+        return dominantPalette;
+    }
+
     public List<String> findColoursByMovieId(Long movieId) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -72,50 +109,14 @@ public class ColourService {
 
         //handle empty response, returning empty list
         if (resp == null || resp.getColors() == null) {
-            return List.of(); // return empty list if null
+            // return empty list if null
+            return List.of();
         }
 
         //return list of strings
         return resp.getColors().stream()
                 .map(c -> c.getHex().getValue())
                 .collect(Collectors.toList());
-    }
-
-    public List<String> getOrCreateColours(Long movieId, String hex) {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
-
-        // check if colours exist for this movie
-        Optional<ColourModel> existingColoursOpt = colourRepository.findByMovie(movie);
-
-        if (existingColoursOpt.isPresent()) {
-            ColourModel existingColours = existingColoursOpt.get();
-            // return existing colours as a list
-            return List.of(
-                    existingColours.getColour_1(), existingColours.getColour_2(),
-                    existingColours.getColour_3(), existingColours.getColour_4(),
-                    existingColours.getColour_5(), existingColours.getColour_6(),
-                    existingColours.getColour_7(), existingColours.getColour_8(),
-                    existingColours.getColour_9(), existingColours.getColour_10(),
-                    existingColours.getColour_11(), existingColours.getColour_12()
-            ).stream().filter(Objects::nonNull).collect(Collectors.toList());
-        }
-
-        // if no existing colours, fetch from API and save
-        // generate dominant palette
-        List<String> dominantPalette = getColours(hex);
-
-        // generate secondary palette
-        String secondaryHex = imageService.getSecondaryColour(
-                movie.getPosterUrl(),
-                "#" + hex // keep '#' for ImageService method
-        ).replace("#", "");
-        List<String> secondaryPalette = getColours(secondaryHex);
-
-        // Save both palettes
-        saveColours(movieId, dominantPalette, secondaryPalette);
-
-        return dominantPalette;
     }
 
     public void saveColours(Long movieId, List<String> dominantColours,  List<String> secondaryColours) {

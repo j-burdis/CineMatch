@@ -18,7 +18,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Optional<Movie> findByTitleAndReleaseDate(@Param("title") String title,
                                               @Param("releaseDate") java.time.LocalDate releaseDate);
 
-    // Alternative method - find by title only if you prefer simpler duplicate checking
     Optional<Movie> findByTitle(String title);
 
     @Query("SELECT m FROM Movie m WHERE LOWER(m.title) LIKE LOWER(CONCAT('%', :query, '%'))")

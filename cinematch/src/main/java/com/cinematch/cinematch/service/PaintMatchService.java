@@ -27,6 +27,59 @@ public class PaintMatchService {
         this.duluxColourRepository = duluxColourRepository;
     }
 
+//    main business methods
+    public List<DuluxColour> getOrCreatePaintMatches(Long movieId, List<DuluxColour> matches) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        // Check if paint matches already exist for this movie
+        PaintMatch existingMatches = paintMatchRepository.findByMovie(movie).orElse(null);
+
+        if (existingMatches != null) {
+            // Convert stored hex codes back to DuluxColour objects
+            // You'll need to implement a method to get DuluxColour by hex code
+            return convertHexCodesToDuluxColours(existingMatches);
+        }
+
+        // If no existing matches, save new ones
+        savePaintMatches(movieId, matches);
+        return matches;
+    }
+
+    public List<DuluxColour> getOrCreateSecondaryPaintMatches(Long movieId, List<DuluxColour> matches) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        PaintMatch existingMatches = paintMatchRepository.findByMovie(movie).orElse(null);
+
+        if (existingMatches != null && existingMatches.getSecondary_paint_1() != null) {
+            return convertHexCodesToDuluxColoursSecondary(existingMatches);
+        }
+
+        if (existingMatches == null) {
+            existingMatches = PaintMatch.builder().movie(movie).build();
+        }
+
+        // Save secondary paints
+        existingMatches.setSecondary_paint_1(getHex(matches, 0));
+        existingMatches.setSecondary_paint_2(getHex(matches, 1));
+        existingMatches.setSecondary_paint_3(getHex(matches, 2));
+        existingMatches.setSecondary_paint_4(getHex(matches, 3));
+        existingMatches.setSecondary_paint_5(getHex(matches, 4));
+        existingMatches.setSecondary_paint_6(getHex(matches, 5));
+        existingMatches.setSecondary_paint_7(getHex(matches, 6));
+        existingMatches.setSecondary_paint_8(getHex(matches, 7));
+        existingMatches.setSecondary_paint_9(getHex(matches, 8));
+        existingMatches.setSecondary_paint_10(getHex(matches, 9));
+        existingMatches.setSecondary_paint_11(getHex(matches, 10));
+        existingMatches.setSecondary_paint_12(getHex(matches, 11));
+
+        paintMatchRepository.save(existingMatches);
+
+        return matches;
+    }
+
+//    retrieval methods
     public List<DuluxColour> findMatchesByMovieId(Long movieId) {
         return paintMatchRepository.findById(movieId)
                 .map(paintMatch -> {
@@ -80,82 +133,7 @@ public class PaintMatchService {
                 .orElse(List.of());
     }
 
-    public List<DuluxColour> getOrCreateSecondaryPaintMatches(Long movieId, List<DuluxColour> matches) {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
-
-        PaintMatch existingMatches = paintMatchRepository.findByMovie(movie).orElse(null);
-
-        if (existingMatches != null && existingMatches.getSecondary_paint_1() != null) {
-            return convertHexCodesToDuluxColoursSecondary(existingMatches);
-        }
-
-        if (existingMatches == null) {
-            existingMatches = PaintMatch.builder().movie(movie).build();
-        }
-
-        // Save secondary paints
-        existingMatches.setSecondary_paint_1(getHex(matches, 0));
-        existingMatches.setSecondary_paint_2(getHex(matches, 1));
-        existingMatches.setSecondary_paint_3(getHex(matches, 2));
-        existingMatches.setSecondary_paint_4(getHex(matches, 3));
-        existingMatches.setSecondary_paint_5(getHex(matches, 4));
-        existingMatches.setSecondary_paint_6(getHex(matches, 5));
-        existingMatches.setSecondary_paint_7(getHex(matches, 6));
-        existingMatches.setSecondary_paint_8(getHex(matches, 7));
-        existingMatches.setSecondary_paint_9(getHex(matches, 8));
-        existingMatches.setSecondary_paint_10(getHex(matches, 9));
-        existingMatches.setSecondary_paint_11(getHex(matches, 10));
-        existingMatches.setSecondary_paint_12(getHex(matches, 11));
-
-        paintMatchRepository.save(existingMatches);
-
-        return matches;
-    }
-
-    private List<DuluxColour> convertHexCodesToDuluxColoursSecondary(PaintMatch paintMatch) {
-        return List.of(
-                        paintMatch.getSecondary_paint_1(),
-                        paintMatch.getSecondary_paint_2(),
-                        paintMatch.getSecondary_paint_3(),
-                        paintMatch.getSecondary_paint_4(),
-                        paintMatch.getSecondary_paint_5(),
-                        paintMatch.getSecondary_paint_6(),
-                        paintMatch.getSecondary_paint_7(),
-                        paintMatch.getSecondary_paint_8(),
-                        paintMatch.getSecondary_paint_9(),
-                        paintMatch.getSecondary_paint_10(),
-                        paintMatch.getSecondary_paint_11(),
-                        paintMatch.getSecondary_paint_12()
-                ).stream()
-                .filter(hex -> hex != null)
-                .map(hex -> duluxColourRepository.findByHexCode(hex).orElseGet(() -> {
-                    DuluxColour colour = new DuluxColour();
-                    colour.setHexCode(hex);
-                    return colour;
-                }))
-                .collect(Collectors.toList());
-    }
-
-
-    public List<DuluxColour> getOrCreatePaintMatches(Long movieId, List<DuluxColour> matches) {
-        Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
-
-        // Check if paint matches already exist for this movie
-        PaintMatch existingMatches = paintMatchRepository.findByMovie(movie).orElse(null);
-
-        if (existingMatches != null) {
-            // Convert stored hex codes back to DuluxColour objects
-            // You'll need to implement a method to get DuluxColour by hex code
-            return convertHexCodesToDuluxColours(existingMatches);
-        }
-
-        // If no existing matches, save new ones
-        savePaintMatches(movieId, matches);
-        return matches;
-    }
-
+//    persistence methods
     public void savePaintMatches(Long movieId, List<DuluxColour> matches) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
@@ -183,10 +161,7 @@ public class PaintMatchService {
         paintMatchRepository.save(paintMatch);
     }
 
-    private String getHex(List<DuluxColour> matches, int index) {
-        return index < matches.size() ? matches.get(index).getHexCode() : null;
-    }
-
+//    private utility methods
     private List<DuluxColour> convertHexCodesToDuluxColours(PaintMatch paintMatch) {
         return List.of(
                         paintMatch.getPaint_1(),
@@ -209,5 +184,33 @@ public class PaintMatchService {
                     return colour; // fallback if not found in repository
                 }))
                 .collect(Collectors.toList());
+    }
+
+    private List<DuluxColour> convertHexCodesToDuluxColoursSecondary(PaintMatch paintMatch) {
+        return List.of(
+                        paintMatch.getSecondary_paint_1(),
+                        paintMatch.getSecondary_paint_2(),
+                        paintMatch.getSecondary_paint_3(),
+                        paintMatch.getSecondary_paint_4(),
+                        paintMatch.getSecondary_paint_5(),
+                        paintMatch.getSecondary_paint_6(),
+                        paintMatch.getSecondary_paint_7(),
+                        paintMatch.getSecondary_paint_8(),
+                        paintMatch.getSecondary_paint_9(),
+                        paintMatch.getSecondary_paint_10(),
+                        paintMatch.getSecondary_paint_11(),
+                        paintMatch.getSecondary_paint_12()
+                ).stream()
+                .filter(hex -> hex != null)
+                .map(hex -> duluxColourRepository.findByHexCode(hex).orElseGet(() -> {
+                    DuluxColour colour = new DuluxColour();
+                    colour.setHexCode(hex);
+                    return colour;
+                }))
+                .collect(Collectors.toList());
+    }
+
+    private String getHex(List<DuluxColour> matches, int index) {
+        return index < matches.size() ? matches.get(index).getHexCode() : null;
     }
 }
