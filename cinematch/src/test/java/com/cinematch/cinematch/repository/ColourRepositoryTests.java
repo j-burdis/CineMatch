@@ -42,7 +42,6 @@ public class ColourRepositoryTests {
         assertThat(result.get().getColour_1()).isEqualTo("#FF5733");
     }
 
-
     @Test
     public void ColourRepository_FindByMovie_ReturnsMultipleColoursWhenExist() {
         Movie movie = new Movie(1L, "Test Movie", "Test Image URL", "2025-01-01", "Test Dom Colour");
