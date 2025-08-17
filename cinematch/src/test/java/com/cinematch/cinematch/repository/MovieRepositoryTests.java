@@ -308,13 +308,5 @@ public class MovieRepositoryTests {
         assertThat(result).isEmpty();
     }
 
-
-
-
-
-
-
-
-
 }
 
