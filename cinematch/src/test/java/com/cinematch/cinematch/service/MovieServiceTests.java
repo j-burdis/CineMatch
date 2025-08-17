@@ -27,54 +27,48 @@ public class MovieServiceTests {
     private MovieService movieService;
 
     @Test
-    public void shouldReturnPopularMoviesWhenExistInDatabase() {
+    public void MovieService_GetAllMoviesFromDatabase_ReturnsMovies() {
         // Arrange: mock repository to return movies
         List<Movie> mockMovies = new ArrayList<>();
-        mockMovies.add(new Movie(1L, "Test Movie Title", "Test Poster", "2025-01-01", "Dominant Colour" ));
+        mockMovies.add(new Movie(1L, "Test Movie 1", "Test Poster 1", "2025-01-01", "Dominant Colour" ));
+        mockMovies.add(new Movie(2L, "Test Movie 2", "Test Poster 2", "2025-01-01", "Dominant Colour" ));
         when(movieRepository.findAll()).thenReturn(mockMovies);
 
-        //Spy service
-        MovieService spyService = spy(movieService);
-
         // Act
-        List<Movie> result = movieService.getPopularMovies();
+        List<Movie> result = movieService.getAllMoviesFromDatabase();
         // Assert: should return movies from DB - no API call
         assertEquals(mockMovies, result);
-      
-        // ensure method not called
-        verify(spyService, never()).fetchAndSaveMoviesFromApi("popular");
+        assertEquals(mockMovies, result);
+        verify(movieRepository, times(1)).findAll();
     }
 
-    @Test
-    void shouldFetchMoviesFromApiWhenDatabaseIsEmpty() {
-        // Arrange: empty db
-        when(movieRepository.findAll()).thenReturn(new ArrayList<>());
-        // mock fetchAndSaveMoviesFromApi()
-        MovieService spyService = spy(movieService);
-        List<Movie> apiMovies = List.of(
-                new Movie(1L, "Test Movie Title", "Some Poster URL", "2014-11-07", "Dominant Colour")
-        );
-        doReturn(apiMovies).when(spyService).fetchAndSaveMoviesFromApi("popular");
-        // Act
-        List<Movie> result = spyService.getPopularMovies();
-        // Assert
-        assertEquals(apiMovies, result);
-        verify(spyService).fetchAndSaveMoviesFromApi("popular");
-    }
+@Test
+public void MovieService_GetPopularMovies_FetchesFromApiWhenDatabaseIsEmpty() {
+    // Spy the real service so we can stub the API call
+    MovieService spyService = spy(movieService);
 
+    // Prepare API return data
+    List<Movie> apiMovies = List.of(
+            new Movie(1L, "Test Movie Title", "Some Poster URL", "2014-11-07", "Dominant Colour")
+    );
 
-//    public Movie findById(Long movieId) {
-//        return movieRepository.findById(movieId).orElse(null);
-//    }
+    // Stub only API fetch method
+    doReturn(apiMovies).when(spyService).fetchAndSaveMoviesFromApi("popular");
+
+    // Act: call the method
+    List<Movie> result = spyService.getPopularMovies();
+
+    // Assert: result comes from API and API method was called
+    assertEquals(apiMovies, result);
+    verify(spyService).fetchAndSaveMoviesFromApi("popular");
+}
+
     @Test
-    void shouldReturnMovieWhenFound() {
+    public void MovieService_FindById_ReturnSpecificMovie() {
         Long id = 1L;
         Movie movie = new Movie(id, "Test Movie", "url", "2025-01-01", "Colour");
-        //Informs mock movieRepository that if findById(1L) is called, return Optional that contains that movie
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
-        //calls the real movieService.findById() method which calls the mocked repository - because of @Mock private MovieRepository movieRepository;
         Movie result = movieService.findById(id);
-        //checks movie returned by service is same object in Movie movie = new Movie()
         assertEquals(movie, result);
     }
 }
